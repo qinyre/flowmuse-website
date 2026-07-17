@@ -1,8 +1,8 @@
 /* Design System - Premium Modern */
 :root {
     --color-primary: #1C1917;
-    --color-accent: #A16207;
-    --color-accent-light: #CA8A04;
+    --color-accent: #059669;
+    --color-accent-light: #10B981;
     --color-bg: #FAFAF9;
     --color-surface: #FFFFFF;
     --color-text: #0C0A09;
@@ -143,8 +143,8 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    background: linear-gradient(135deg, rgba(161, 98, 7, 0.1), rgba(202, 138, 4, 0.1));
-    border: 1px solid rgba(161, 98, 7, 0.2);
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(16, 185, 129, 0.1));
+    border: 1px solid rgba(5, 150, 105, 0.2);
     border-radius: var(--radius-xl);
     font-size: 0.875rem;
     font-weight: 600;
@@ -180,8 +180,8 @@ body {
 
 /* Notice Banner */
 .notice-banner {
-    background: linear-gradient(135deg, rgba(161, 98, 7, 0.1), rgba(202, 138, 4, 0.05));
-    border: 1px solid rgba(161, 98, 7, 0.2);
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(16, 185, 129, 0.05));
+    border: 1px solid rgba(5, 150, 105, 0.2);
     border-radius: var(--radius-lg);
     padding: var(--space-sm) var(--space-lg);
     margin-top: calc(var(--space-md) * -1); /* 向上移动，靠近副标题 */
@@ -192,7 +192,7 @@ body {
     color: var(--color-accent);
     font-size: 0.95rem;
     font-weight: 500;
-    box-shadow: 0 4px 12px rgba(161, 98, 7, 0.1);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.1);
     animation: slideDown 0.6s ease-out;
 }
 
@@ -531,8 +531,8 @@ body {
 .section-tag {
     display: inline-block;
     padding: 0.5rem 1rem;
-    background: linear-gradient(135deg, rgba(161, 98, 7, 0.1), rgba(202, 138, 4, 0.1));
-    border: 1px solid rgba(161, 98, 7, 0.2);
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(16, 185, 129, 0.1));
+    border: 1px solid rgba(5, 150, 105, 0.2);
     border-radius: var(--radius-xl);
     font-size: 0.875rem;
     font-weight: 600;
@@ -559,7 +559,7 @@ body {
 /* Features Section */
 .features {
     padding: var(--space-3xl) 0;
-    background: var(--color-surface);
+    background: linear-gradient(to bottom, var(--color-bg) 0%, var(--color-surface) 15%);
 }
 
 /* Main Feature Cards */
@@ -571,8 +571,8 @@ body {
 }
 
 .feature-main-grid .feature-card {
-    background: linear-gradient(135deg, rgba(161, 98, 7, 0.05), rgba(202, 138, 4, 0.05));
-    border: 1px solid rgba(161, 98, 7, 0.2);
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.05), rgba(16, 185, 129, 0.05));
+    border: 1px solid rgba(5, 150, 105, 0.2);
     padding: var(--space-2xl);
 }
 
@@ -677,7 +677,7 @@ body {
     border-color: var(--color-accent);
     color: white;
     transform: translateY(-50%) scale(1.15);
-    box-shadow: 0 8px 24px rgba(161, 98, 7, 0.3);
+    box-shadow: 0 8px 24px rgba(5, 150, 105, 0.3);
 }
 
 .carousel-nav:active {
@@ -734,12 +734,12 @@ body {
 .feature-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
-    border-color: rgba(161, 98, 7, 0.3);
+    border-color: rgba(5, 150, 105, 0.3);
 }
 
 .feature-highlight {
-    background: linear-gradient(135deg, rgba(161, 98, 7, 0.05), rgba(202, 138, 4, 0.05));
-    border: 1px solid rgba(161, 98, 7, 0.2);
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.05), rgba(16, 185, 129, 0.05));
+    border: 1px solid rgba(5, 150, 105, 0.2);
 }
 
 .feature-icon {
@@ -811,7 +811,7 @@ body {
 }
 
 .platform-highlight {
-    background: linear-gradient(135deg, rgba(161, 98, 7, 0.05), rgba(202, 138, 4, 0.05));
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.05), rgba(16, 185, 129, 0.05));
     border-color: var(--color-accent);
 }
 
@@ -822,7 +822,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(161, 98, 7, 0.1), rgba(202, 138, 4, 0.05));
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(16, 185, 129, 0.05));
     border-radius: var(--radius-lg);
     color: var(--color-accent);
     /* transition 被移除，让 GSAP 完全控制动画 */
@@ -972,7 +972,7 @@ body {
 
 .btn-download:hover {
     transform: translateY(-3px);
-    box-shadow: 0 20px 40px rgba(161, 98, 7, 0.4);
+    box-shadow: 0 20px 40px rgba(5, 150, 105, 0.4);
 }
 
 .btn-download-alt {
@@ -1224,8 +1224,8 @@ a:focus-visible {
     left: 50%;
     transform: translateX(-50%);
     padding: 0.5rem 1rem;
-    background: rgba(161, 98, 7, 0.1);
-    border: 1px solid rgba(161, 98, 7, 0.2);
+    background: rgba(5, 150, 105, 0.1);
+    border: 1px solid rgba(5, 150, 105, 0.2);
     border-radius: var(--radius-md);
     font-size: 0.875rem;
     color: var(--color-accent);
@@ -1246,9 +1246,9 @@ body::before {
     width: 200%;
     height: 200%;
     background: 
-        radial-gradient(circle at 20% 50%, rgba(161, 98, 7, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(202, 138, 4, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(161, 98, 7, 0.04) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(5, 150, 105, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(5, 150, 105, 0.04) 0%, transparent 50%);
     animation: backgroundShift 25s ease-in-out infinite;
     pointer-events: none;
     z-index: -1;
@@ -1265,7 +1265,7 @@ body::before {
     width: 500px;
     height: 500px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(161, 98, 7, 0.12) 0%, rgba(202, 138, 4, 0.08) 30%, transparent 70%);
+    background: radial-gradient(circle, rgba(5, 150, 105, 0.12) 0%, rgba(16, 185, 129, 0.08) 30%, transparent 70%);
     pointer-events: none;
     z-index: 9999;
     mix-blend-mode: multiply;
@@ -1289,7 +1289,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(161, 98, 7, 0.08) 0%, transparent 60%);
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.08) 0%, transparent 60%);
     opacity: 0;
     transition: opacity 0.5s ease;
     z-index: 0;
@@ -1302,11 +1302,11 @@ body::before {
 .feature-card:hover {
     transform: translateY(-16px) rotateX(5deg) rotateY(-3deg) scale(1.03);
     box-shadow:
-        0 35px 70px -20px rgba(161, 98, 7, 0.35),
-        0 0 0 1px rgba(161, 98, 7, 0.2),
+        0 35px 70px -20px rgba(5, 150, 105, 0.35),
+        0 0 0 1px rgba(5, 150, 105, 0.2),
         inset 0 1px 0 0 rgba(255, 255, 255, 0.7),
-        0 0 40px 0 rgba(161, 98, 7, 0.15);
-    border-color: rgba(161, 98, 7, 0.5);
+        0 0 40px 0 rgba(5, 150, 105, 0.15);
+    border-color: rgba(5, 150, 105, 0.5);
 }
 
 .feature-card:nth-child(2n):hover {
@@ -1335,7 +1335,7 @@ body::before {
     left: 50%;
     width: 0;
     height: 0;
-    background: radial-gradient(circle, rgba(161, 98, 7, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(5, 150, 105, 0.15) 0%, transparent 70%);
     transform: translate(-50%, -50%);
     transition: width 0.6s ease, height 0.6s ease;
     border-radius: 50%;
@@ -1350,10 +1350,10 @@ body::before {
 .platform-card:hover {
     transform: translateY(-10px) rotateY(8deg) rotateX(2deg);
     box-shadow: 
-        0 25px 50px -12px rgba(161, 98, 7, 0.3),
-        0 0 0 1px rgba(161, 98, 7, 0.2),
-        0 0 30px 0 rgba(161, 98, 7, 0.1);
-    border-color: rgba(161, 98, 7, 0.4);
+        0 25px 50px -12px rgba(5, 150, 105, 0.3),
+        0 0 0 1px rgba(5, 150, 105, 0.2),
+        0 0 30px 0 rgba(5, 150, 105, 0.1);
+    border-color: rgba(5, 150, 105, 0.4);
 }
 
 /* Whiteboard Mockup Glow */
@@ -1368,7 +1368,7 @@ body::before {
     left: -20px;
     right: -20px;
     bottom: -20px;
-    background: radial-gradient(circle at 50% 50%, rgba(161, 98, 7, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at 50% 50%, rgba(5, 150, 105, 0.1) 0%, transparent 70%);
     opacity: 0;
     transition: opacity 0.8s ease;
     border-radius: calc(var(--radius-xl) + 20px);
@@ -1420,7 +1420,7 @@ body::before {
 /* Hero Title Glow */
 .hero-highlight {
     position: relative;
-    text-shadow: 0 0 30px rgba(161, 98, 7, 0.3);
+    text-shadow: 0 0 30px rgba(5, 150, 105, 0.3);
 }
 
 /* Section Tag Pulse */
@@ -1454,7 +1454,7 @@ html {
 
 /* Selection Style */
 ::selection {
-    background: rgba(161, 98, 7, 0.2);
+    background: rgba(5, 150, 105, 0.2);
     color: var(--color-primary);
 }
 

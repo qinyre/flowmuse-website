@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // HarmonyOS 高亮卡片特殊效果
             if (card.classList.contains('platform-highlight')) {
                 gsap.to(card, {
-                    boxShadow: '0 35px 80px -15px rgba(161, 98, 7, 0.6), 0 0 0 3px rgba(161, 98, 7, 0.5)',
+                    boxShadow: '0 35px 80px -15px rgba(5, 150, 105, 0.6), 0 0 0 3px rgba(5, 150, 105, 0.5)',
                     duration: 0.3
                 });
             }
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (card.classList.contains('platform-highlight')) {
                 gsap.to(card, {
-                    boxShadow: '0 20px 50px -10px rgba(161, 98, 7, 0.35), 0 0 0 1px rgba(161, 98, 7, 0.3)',
+                    boxShadow: '0 20px 50px -10px rgba(5, 150, 105, 0.35), 0 0 0 1px rgba(5, 150, 105, 0.3)',
                     duration: 0.3
                 });
             }
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ripple.style.width = '0px';
             ripple.style.height = '0px';
             ripple.style.borderRadius = '50%';
-            ripple.style.background = 'rgba(161, 98, 7, 0.3)';
+            ripple.style.background = 'rgba(5, 150, 105, 0.3)';
             ripple.style.transform = 'translate(-50%, -50%)';
             ripple.style.pointerEvents = 'none';
             card.style.position = 'relative';
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const harmonyCard = document.querySelector('.platform-highlight');
     if (harmonyCard) {
         gsap.to(harmonyCard, {
-            boxShadow: '0 25px 60px -12px rgba(161, 98, 7, 0.45), 0 0 0 1px rgba(161, 98, 7, 0.35)',
+            boxShadow: '0 25px 60px -12px rgba(5, 150, 105, 0.45), 0 0 0 1px rgba(5, 150, 105, 0.35)',
             duration: 2,
             repeat: -1,
             yoyo: true,
@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 添加发光效果
             gsap.to(item, {
-                boxShadow: '0 20px 60px -10px rgba(161, 98, 7, 0.2)',
+                boxShadow: '0 20px 60px -10px rgba(5, 150, 105, 0.2)',
                 duration: 0.3
             });
         });
@@ -639,8 +639,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // 中间卡片高亮
             if (Math.abs(relativePos) < 0.3) {
                 gsap.to(card, {
-                    boxShadow: '0 30px 70px -15px rgba(161, 98, 7, 0.45), 0 0 0 2px rgba(161, 98, 7, 0.35)',
-                    borderColor: 'rgba(161, 98, 7, 0.6)',
+                    boxShadow: '0 30px 70px -15px rgba(5, 150, 105, 0.45), 0 0 0 2px rgba(5, 150, 105, 0.35)',
+                    borderColor: 'rgba(5, 150, 105, 0.6)',
                     duration: duration
                 });
             } else {
@@ -1396,7 +1396,7 @@ if (prefersReducedMotion) {
 // Console Message
 console.log(
     '%cFlowMuse',
-    'font-size: 32px; font-weight: 700; color: #A16207; font-family: DM Sans;'
+    'font-size: 32px; font-weight: 700; color: #059669; font-family: DM Sans;'
 );
 console.log(
     '%c自由流动的白板笔记 · 基于 Flutter 构建',
