@@ -119,52 +119,52 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: 'power2.out'
     });
 
-    // Scroll-triggered animations for feature cards
-    gsap.utils.toArray('.feature-card').forEach((card, index) => {
-        gsap.from(card, {
-            scrollTrigger: {
-                trigger: card,
-                start: 'top 80%',
-                once: true
-            },
-            opacity: 0,
-            y: 50,
-            duration: 0.8,
-            delay: index * 0.1,
-            ease: 'power3.out'
-        });
-    });
+    // Scroll-triggered animations for feature cards - DISABLED
+    // gsap.utils.toArray('.feature-card').forEach((card, index) => {
+    //     gsap.from(card, {
+    //         scrollTrigger: {
+    //             trigger: card,
+    //             start: 'top 80%',
+    //             once: true
+    //         },
+    //         opacity: 0,
+    //         y: 50,
+    //         duration: 0.8,
+    //         delay: index * 0.1,
+    //         ease: 'power3.out'
+    //     });
+    // });
 
-    // Scroll-triggered animations for platform cards
-    gsap.utils.toArray('.platform-card').forEach((card, index) => {
-        gsap.from(card, {
-            scrollTrigger: {
-                trigger: card,
-                start: 'top 80%',
-                once: true
-            },
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.6,
-            delay: index * 0.1,
-            ease: 'back.out(1.7)'
-        });
-    });
+    // Scroll-triggered animations for platform cards - DISABLED
+    // gsap.utils.toArray('.platform-card').forEach((card, index) => {
+    //     gsap.from(card, {
+    //         scrollTrigger: {
+    //             trigger: card,
+    //             start: 'top 80%',
+    //             once: true
+    //         },
+    //         opacity: 0,
+    //         scale: 0.8,
+    //         duration: 0.6,
+    //         delay: index * 0.1,
+    //         ease: 'back.out(1.7)'
+    //     });
+    // });
 
-    // Stats animation
-    gsap.utils.toArray('.stat-value').forEach((stat) => {
-        gsap.from(stat, {
-            scrollTrigger: {
-                trigger: stat,
-                start: 'top 85%',
-                once: true
-            },
-            opacity: 0,
-            scale: 0.5,
-            duration: 0.8,
-            ease: 'back.out(1.7)'
-        });
-    });
+    // Stats animation - DISABLED
+    // gsap.utils.toArray('.stat-value').forEach((stat) => {
+    //     gsap.from(stat, {
+    //         scrollTrigger: {
+    //             trigger: stat,
+    //             start: 'top 85%',
+    //             once: true
+    //         },
+    //         opacity: 0,
+    //         scale: 0.5,
+    //         duration: 0.8,
+    //         ease: 'back.out(1.7)'
+    //     });
+    // });
 });
 
 // Hero Content Animation
