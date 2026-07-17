@@ -188,7 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
             icon.style.cursor = 'pointer';
             console.log('Adding click listener to icon', index); // 确认监听器被添加
 
-            icon.addEventListener('click', (e) => {
+            // 给图标容器和内部所有元素添加点击事件
+            const clickHandler = (e) => {
                 e.stopPropagation(); // 阻止事件冒泡到卡片
                 e.preventDefault(); // 阻止默认行为
 
@@ -229,7 +230,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 );
-            }, true); // 使用捕获阶段
+            };
+
+            // 给图标和其所有子元素添加点击事件
+            icon.addEventListener('click', clickHandler, true); // 使用捕获阶段
+            icon.querySelectorAll('*').forEach(child => {
+                child.style.pointerEvents = 'none'; // 让子元素不拦截点击
+            });
         }
 
         // 点击卡片涟漪效果
@@ -348,10 +355,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         badge.addEventListener('mouseenter', () => {
             gsap.to(badge, {
-                scale: 1.2,
-                rotation: Math.random() * 10 - 5,
-                duration: 0.3,
+                scale: 1.15,
+                y: -15,
+                duration: 0.4,
                 ease: 'back.out(2)'
+            });
+
+            // 随机旋转角度
+            const randomRotation = (Math.random() - 0.5) * 10;
+            gsap.to(badge, {
+                rotation: randomRotation,
+                duration: 0.3
             });
         });
 
@@ -361,6 +375,89 @@ document.addEventListener('DOMContentLoaded', () => {
                 rotation: 0,
                 duration: 0.3,
                 ease: 'power2.inOut'
+            });
+        });
+
+        // 点击徽章的涟漪效果
+        badge.addEventListener('click', () => {
+            gsap.fromTo(badge,
+                { scale: 0.9 },
+                {
+                    scale: 1.15,
+                    duration: 0.4,
+                    ease: 'elastic.out(1, 0.5)'
+                }
+            );
+        });
+    });
+
+    // Tech Items - Enhanced Hover Effect
+    const techItems = document.querySelectorAll('.tech-item');
+    techItems.forEach((item, index) => {
+        const techNumber = item.querySelector('.tech-number');
+
+        item.addEventListener('mouseenter', () => {
+            gsap.to(item, {
+                scale: 1.03,
+                y: -5,
+                duration: 0.4,
+                ease: 'power2.out'
+            });
+
+            // 数字放大旋转
+            gsap.to(techNumber, {
+                scale: 1.2,
+                rotation: 360,
+                duration: 0.6,
+                ease: 'back.out(1.5)'
+            });
+
+            // 添加发光效果
+            gsap.to(item, {
+                boxShadow: '0 20px 60px -10px rgba(161, 98, 7, 0.2)',
+                duration: 0.3
+            });
+        });
+
+        item.addEventListener('mouseleave', () => {
+            gsap.to(item, {
+                scale: 1,
+                y: 0,
+                duration: 0.4,
+                ease: 'power2.inOut'
+            });
+
+            gsap.to(techNumber, {
+                scale: 1,
+                rotation: 0,
+                duration: 0.4
+            });
+
+            gsap.to(item, {
+                boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.1)',
+                duration: 0.3
+            });
+        });
+
+        // 点击技术项的效果
+        item.addEventListener('click', () => {
+            // 脉冲效果
+            gsap.fromTo(item,
+                { scale: 0.98 },
+                {
+                    scale: 1.03,
+                    duration: 0.3,
+                    yoyo: true,
+                    repeat: 1,
+                    ease: 'power2.inOut'
+                }
+            );
+
+            // 数字旋转两圈
+            gsap.to(techNumber, {
+                rotation: '+=720',
+                duration: 0.8,
+                ease: 'power2.out'
             });
         });
     });
