@@ -252,6 +252,49 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Whiteboard Tool Switching
+    const wbTools = document.querySelectorAll('.wb-tool');
+    wbTools.forEach((tool, index) => {
+        tool.addEventListener('click', () => {
+            // 移除所有工具的 active 状态
+            wbTools.forEach(t => t.classList.remove('active'));
+
+            // 添加当前工具的 active 状态
+            tool.classList.add('active');
+
+            // 添加点击动画
+            gsap.fromTo(tool,
+                { scale: 0.9 },
+                {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'back.out(2)'
+                }
+            );
+        });
+
+        // 悬停效果
+        tool.addEventListener('mouseenter', () => {
+            if (!tool.classList.contains('active')) {
+                gsap.to(tool, {
+                    scale: 1.1,
+                    duration: 0.2,
+                    ease: 'power2.out'
+                });
+            }
+        });
+
+        tool.addEventListener('mouseleave', () => {
+            if (!tool.classList.contains('active')) {
+                gsap.to(tool, {
+                    scale: 1,
+                    duration: 0.2,
+                    ease: 'power2.inOut'
+                });
+            }
+        });
+    });
+
     // Parallax Scrolling Effect for Hero Section
     gsap.to('.hero-visual', {
         yPercent: 30,
