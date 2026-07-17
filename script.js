@@ -1254,41 +1254,35 @@ featureCards.forEach(card => {
             ease: 'power2.out'
         });
     });
-});
 
-// Platform Cards Float Animation
-const platformCards = document.querySelectorAll('.platform-card');
+    // Stats Counter Animation
+    const statValues = document.querySelectorAll('.stat-value');
+    console.log('Found stat values:', statValues.length); // 调试日志
 
-platformCards.forEach((card, index) => {
-    gsap.to(card, {
-        y: -10,
-        duration: 2 + (index * 0.2),
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-        delay: index * 0.1
+    statValues.forEach(stat => {
+        const text = stat.textContent.trim(); // 去除空格
+        const numberMatch = text.match(/\d+/); // 提取数字
+
+        if (numberMatch) {
+            const targetNumber = parseInt(numberMatch[0]);
+            console.log('Animating stat to:', targetNumber); // 调试日志
+
+            // 创建一个临时对象来存储计数
+            const counter = { value: 0 };
+
+            gsap.to(counter, {
+                value: targetNumber,
+                duration: 2,
+                ease: 'power2.out',
+                delay: 1.2,
+                onUpdate: function() {
+                    stat.textContent = Math.ceil(counter.value) + '+';
+                },
+                onStart: () => console.log('Counter animation started'),
+                onComplete: () => console.log('Counter animation completed')
+            });
+        }
     });
-});
-
-// Stats Counter Animation
-const statValues = document.querySelectorAll('.stat-value');
-
-statValues.forEach(stat => {
-    const text = stat.textContent;
-    const isNumber = !isNaN(text.replace('+', ''));
-
-    if (isNumber) {
-        gsap.from(stat, {
-            textContent: 0,
-            duration: 2,
-            ease: 'power2.out',
-            delay: 1.2,
-            snap: { textContent: 1 },
-            onUpdate: function() {
-                stat.textContent = Math.ceil(this.targets()[0].textContent) + '+';
-            }
-        });
-    }
 });
 
 // Respect Reduced Motion Preference
