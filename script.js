@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollTrigger: {
                 trigger: card,
                 start: 'top 80%',
-                toggleActions: 'play none none none'
+                once: true
             },
             opacity: 0,
             y: 50,
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollTrigger: {
                 trigger: card,
                 start: 'top 80%',
-                toggleActions: 'play none none none'
+                once: true
             },
             opacity: 0,
             scale: 0.8,
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollTrigger: {
                 trigger: stat,
                 start: 'top 85%',
-                toggleActions: 'play none none none'
+                once: true
             },
             opacity: 0,
             scale: 0.5,
