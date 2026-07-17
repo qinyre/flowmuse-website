@@ -69,6 +69,317 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Interactive Feature Cards - Magnetic Effect
+    const featureCards = document.querySelectorAll('.feature-card');
+    featureCards.forEach(card => {
+        card.addEventListener('mouseenter', (e) => {
+            gsap.to(card, {
+                scale: 1.05,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+                scale: 1,
+                x: 0,
+                y: 0,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const deltaX = (x - centerX) / centerX;
+            const deltaY = (y - centerY) / centerY;
+
+            gsap.to(card, {
+                rotateY: deltaX * 10,
+                rotateX: -deltaY * 10,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+    });
+
+    // Platform Cards - Bounce on Hover
+    const platformCards = document.querySelectorAll('.platform-card');
+    platformCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            gsap.to(card, {
+                y: -20,
+                duration: 0.4,
+                ease: 'back.out(2)'
+            });
+
+            const icon = card.querySelector('.platform-icon');
+            gsap.to(icon, {
+                rotation: 360,
+                duration: 0.6,
+                ease: 'power2.out'
+            });
+        });
+
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+                y: 0,
+                duration: 0.3,
+                ease: 'power2.inOut'
+            });
+        });
+    });
+
+    // Buttons - Elastic Press Effect
+    const buttons = document.querySelectorAll('.btn-primary, .btn-secondary, .btn-download, .btn-download-alt');
+    buttons.forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+            gsap.to(btn, {
+                scale: 1.05,
+                duration: 0.3,
+                ease: 'back.out(1.7)'
+            });
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            gsap.to(btn, {
+                scale: 1,
+                duration: 0.3,
+                ease: 'power2.inOut'
+            });
+        });
+
+        btn.addEventListener('mousedown', () => {
+            gsap.to(btn, {
+                scale: 0.95,
+                duration: 0.1,
+                ease: 'power2.out'
+            });
+        });
+
+        btn.addEventListener('mouseup', () => {
+            gsap.to(btn, {
+                scale: 1.05,
+                duration: 0.2,
+                ease: 'back.out(3)'
+            });
+        });
+    });
+
+    // Tech Stack Badges - Float Animation
+    const stackBadges = document.querySelectorAll('.stack-badge');
+    stackBadges.forEach((badge, index) => {
+        // Random floating animation
+        gsap.to(badge, {
+            y: -10,
+            duration: 2 + Math.random(),
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+            delay: index * 0.1
+        });
+
+        badge.addEventListener('mouseenter', () => {
+            gsap.to(badge, {
+                scale: 1.2,
+                rotation: Math.random() * 10 - 5,
+                duration: 0.3,
+                ease: 'back.out(2)'
+            });
+        });
+
+        badge.addEventListener('mouseleave', () => {
+            gsap.to(badge, {
+                scale: 1,
+                rotation: 0,
+                duration: 0.3,
+                ease: 'power2.inOut'
+            });
+        });
+    });
+
+    // Stats - Count Up Animation with ScrollTrigger
+    const statValues = document.querySelectorAll('.hero-stats .stat-value');
+    statValues.forEach(stat => {
+        const text = stat.textContent;
+        if (!isNaN(text.replace('+', ''))) {
+            const target = parseInt(text.replace('+', ''));
+            gsap.from(stat, {
+                textContent: 0,
+                duration: 2,
+                ease: 'power1.out',
+                snap: { textContent: 1 },
+                delay: 1.2,
+                onUpdate: function() {
+                    stat.textContent = Math.ceil(this.targets()[0].textContent) + '+';
+                }
+            });
+        }
+    });
+
+    // Whiteboard Mockup - Interactive Hover
+    const whiteboardMockup = document.querySelector('.whiteboard-mockup');
+    if (whiteboardMockup) {
+        whiteboardMockup.addEventListener('mousemove', (e) => {
+            const rect = whiteboardMockup.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const deltaX = (x - centerX) / centerX;
+            const deltaY = (y - centerY) / centerY;
+
+            gsap.to(whiteboardMockup, {
+                rotateY: deltaX * 5,
+                rotateX: -deltaY * 5,
+                duration: 0.5,
+                ease: 'power2.out'
+            });
+        });
+
+        whiteboardMockup.addEventListener('mouseleave', () => {
+            gsap.to(whiteboardMockup, {
+                rotateY: 0,
+                rotateX: 0,
+                duration: 0.5,
+                ease: 'power2.out'
+            });
+        });
+    }
+
+    // Parallax Scrolling Effect for Hero Section
+    gsap.to('.hero-visual', {
+        yPercent: 30,
+        ease: 'none',
+        scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1
+        }
+    });
+
+    // Section Titles - Reveal Animation
+    gsap.utils.toArray('.section-title').forEach(title => {
+        gsap.from(title, {
+            scrollTrigger: {
+                trigger: title,
+                start: 'top 85%',
+                end: 'top 50%',
+                scrub: 1
+            },
+            opacity: 0,
+            y: 50,
+            scale: 0.9
+        });
+    });
+
+    // Feature Icons - Morph on Scroll
+    gsap.utils.toArray('.feature-icon').forEach((icon, index) => {
+        gsap.from(icon, {
+            scrollTrigger: {
+                trigger: icon,
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+            },
+            scale: 0,
+            rotation: 360,
+            duration: 0.8,
+            ease: 'back.out(2)',
+            delay: index * 0.05
+        });
+    });
+
+    // Stats Bar - Slide In from Bottom
+    gsap.from('.stats-bar', {
+        scrollTrigger: {
+            trigger: '.stats-bar',
+            start: 'top 90%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 100,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out'
+    });
+
+    // Tech Number Badges - Sequential Reveal
+    gsap.utils.toArray('.tech-number').forEach((num, index) => {
+        gsap.from(num, {
+            scrollTrigger: {
+                trigger: num,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+            },
+            scale: 0,
+            rotation: 720,
+            opacity: 0,
+            duration: 0.6,
+            ease: 'back.out(1.7)',
+            delay: index * 0.15
+        });
+    });
+
+    // Mouse Follower for Section Tags
+    const sectionTags = document.querySelectorAll('.section-tag');
+    sectionTags.forEach(tag => {
+        tag.addEventListener('mouseenter', () => {
+            gsap.to(tag, {
+                scale: 1.1,
+                letterSpacing: '0.1em',
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+
+        tag.addEventListener('mouseleave', () => {
+            gsap.to(tag, {
+                scale: 1,
+                letterSpacing: '0.05em',
+                duration: 0.3,
+                ease: 'power2.inOut'
+            });
+        });
+    });
+
+    // Whiteboard Drawing - Animate on Scroll
+    const wbDrawing = document.querySelector('.wb-drawing');
+    if (wbDrawing) {
+        const shapes = wbDrawing.querySelectorAll('rect, circle, path');
+        gsap.set(shapes, { opacity: 0, scale: 0.5 });
+
+        gsap.to(shapes, {
+            scrollTrigger: {
+                trigger: wbDrawing,
+                start: 'top 70%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'back.out(1.7)'
+        });
+    }
+
+    // Footer - Fade Up on Scroll
+    gsap.from('.footer', {
+        scrollTrigger: {
+            trigger: '.footer',
+            start: 'top 95%',
+            toggleActions: 'play none none reverse'
+        },
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: 'power2.out'
+    });
+
     // Set initial state
     gsap.set(['.hero-badge', '.hero-title', '.hero-subtitle', '.hero-actions', '.hero-stats'], {
         opacity: 0,
