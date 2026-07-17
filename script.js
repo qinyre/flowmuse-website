@@ -264,6 +264,292 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Feature Carousel - Continuous Belt with Mouse Drag
+    const carousel = document.querySelector('.feature-carousel');
+    const carouselContainer = document.querySelector('.feature-carousel-container');
+    const carouselCards = document.querySelectorAll('.feature-card-small');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    const progressDots = document.querySelectorAll('.carousel-dot');
+
+    let currentOffset = 0; // 当前偏移量（连续的浮点数）
+    let targetOffset = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startOffset = 0;
+    const totalCards = carouselCards.length;
+    const cardWidth = 300;
+    const cardGap = 20; // 卡片间距
+    const cardStep = cardWidth + cardGap;
+
+    function updateCarousel(animated = true) {
+        // 更新进度点
+        const centerIndex = Math.round(targetOffset) % totalCards;
+        const positiveIndex = ((centerIndex % totalCards) + totalCards) % totalCards;
+        progressDots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === positiveIndex);
+        });
+
+        carouselCards.forEach((card, index) => {
+            // 计算相对位置（支持循环）
+            let relativePos = index - currentOffset;
+
+            // 循环处理 - 确保卡片连续排列
+            while (relativePos > totalCards / 2) relativePos -= totalCards;
+            while (relativePos < -totalCards / 2) relativePos += totalCards;
+
+            // 水平位置 - 连续排列，没有间断
+            const x = relativePos * cardStep;
+
+            // 垂直位置 - 抛物线形成凸起
+            const y = Math.pow(relativePos, 2) * 25;
+
+            // Z 轴深度 - 中间向前凸
+            const z = -Math.pow(relativePos, 2) * 40 + 100;
+
+            // 缩放 - 中间最大
+            const absPos = Math.abs(relativePos);
+            const scale = Math.max(0.75, 1 - absPos * 0.12);
+
+            // 透明度
+            const opacity = Math.max(0.4, 1 - absPos * 0.15);
+
+            // Y 轴旋转 - 形成弧度
+            const rotateY = relativePos * -12;
+
+            // X 轴旋转
+            const rotateX = -absPos * 5;
+
+            // 应用变换
+            const duration = animated ? 0.3 : 0;
+            gsap.to(card, {
+                x: x,
+                y: y,
+                z: z,
+                scale: scale,
+                opacity: opacity,
+                rotateY: rotateY,
+                rotateX: rotateX,
+                duration: duration,
+                ease: 'power2.out'
+            });
+
+            // 中间卡片高亮
+            if (Math.abs(relativePos) < 0.3) {
+                gsap.to(card, {
+                    boxShadow: '0 30px 70px -15px rgba(161, 98, 7, 0.45), 0 0 0 2px rgba(161, 98, 7, 0.35)',
+                    borderColor: 'rgba(161, 98, 7, 0.6)',
+                    duration: duration
+                });
+            } else {
+                gsap.to(card, {
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+                    borderColor: 'var(--color-border)',
+                    duration: duration
+                });
+            }
+        });
+    }
+
+    // 平滑动画循环
+    function animateCarousel() {
+        currentOffset += (targetOffset - currentOffset) * 0.15;
+        if (Math.abs(targetOffset - currentOffset) > 0.001) {
+            updateCarousel(false);
+            requestAnimationFrame(animateCarousel);
+        } else {
+            currentOffset = targetOffset;
+        }
+    }
+
+    // 初始化
+    if (carousel) {
+        updateCarousel(false);
+    }
+
+    // 鼠标/触摸拖动
+    let lastMoveX = 0;
+    let velocity = 0;
+
+    function onDragStart(e) {
+        isDragging = true;
+        startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        startOffset = targetOffset;
+        velocity = 0;
+        lastMoveX = startX;
+        carouselContainer.style.cursor = 'grabbing';
+    }
+
+    function onDragMove(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+
+        const currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        const diff = currentX - startX;
+        const movement = currentX - lastMoveX;
+        velocity = movement;
+        lastMoveX = currentX;
+
+        // 拖动灵敏度
+        targetOffset = startOffset - diff / cardStep;
+        currentOffset = targetOffset;
+        updateCarousel(false);
+    }
+
+    function onDragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        carouselContainer.style.cursor = 'grab';
+
+        // 惯性滑动
+        targetOffset += velocity * 0.05;
+
+        // 吸附到最近的卡片
+        targetOffset = Math.round(targetOffset);
+        animateCarousel();
+    }
+
+    if (carouselContainer) {
+        // 鼠标事件
+        carouselContainer.addEventListener('mousedown', onDragStart);
+        document.addEventListener('mousemove', onDragMove);
+        document.addEventListener('mouseup', onDragEnd);
+
+        // 触摸事件
+        carouselContainer.addEventListener('touchstart', onDragStart, { passive: false });
+        document.addEventListener('touchmove', onDragMove, { passive: false });
+        document.addEventListener('touchend', onDragEnd);
+    }
+
+    // 按钮控制
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            targetOffset -= 1;
+            animateCarousel();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            targetOffset += 1;
+            animateCarousel();
+        });
+    }
+
+    // 进度点点击
+    progressDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            const currentIndex = Math.round(targetOffset) % totalCards;
+            const diff = index - ((currentIndex % totalCards) + totalCards) % totalCards;
+
+            // 选择最短路径
+            if (diff > totalCards / 2) {
+                targetOffset += diff - totalCards;
+            } else if (diff < -totalCards / 2) {
+                targetOffset += diff + totalCards;
+            } else {
+                targetOffset += diff;
+            }
+            animateCarousel();
+        });
+    });
+
+    // 键盘控制
+    document.addEventListener('keydown', (e) => {
+        if (carousel && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+            e.preventDefault();
+            if (e.key === 'ArrowLeft') {
+                targetOffset -= 1;
+            } else {
+                targetOffset += 1;
+            }
+            animateCarousel();
+        }
+    });
+
+    // 鼠标滚轮控制
+    if (carousel) {
+        carousel.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? 1 : -1;
+            targetOffset += delta;
+            animateCarousel();
+        }, { passive: false });
+    }
+
+    // 卡片鼠标跟随 3D 倾斜效果
+    carouselCards.forEach(card => {
+        let tiltAnimation = null;
+
+        card.addEventListener('mouseenter', () => {
+            // 只对中心卡片应用倾斜效果
+            const index = Array.from(carouselCards).indexOf(card);
+            let relativePos = index - currentOffset;
+            while (relativePos > totalCards / 2) relativePos -= totalCards;
+            while (relativePos < -totalCards / 2) relativePos += totalCards;
+
+            if (Math.abs(relativePos) < 0.3) {
+                card.style.transition = 'none';
+            }
+        });
+
+        card.addEventListener('mousemove', (e) => {
+            // 只对中心卡片应用倾斜效果
+            const index = Array.from(carouselCards).indexOf(card);
+            let relativePos = index - currentOffset;
+            while (relativePos > totalCards / 2) relativePos -= totalCards;
+            while (relativePos < -totalCards / 2) relativePos += totalCards;
+
+            if (Math.abs(relativePos) > 0.3) return;
+
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const deltaX = (x - centerX) / centerX;
+            const deltaY = (y - centerY) / centerY;
+
+            if (tiltAnimation) {
+                tiltAnimation.kill();
+            }
+
+            // 获取当前的基础旋转值
+            const baseRotateY = relativePos * -12;
+            const baseRotateX = -Math.abs(relativePos) * 5;
+
+            tiltAnimation = gsap.to(card, {
+                rotateY: baseRotateY + deltaX * 15,
+                rotateX: baseRotateX - deltaY * 15,
+                duration: 0.3,
+                ease: 'power2.out',
+                overwrite: 'auto'
+            });
+        });
+
+        card.addEventListener('mouseleave', () => {
+            if (tiltAnimation) {
+                tiltAnimation.kill();
+            }
+
+            const index = Array.from(carouselCards).indexOf(card);
+            let relativePos = index - currentOffset;
+            while (relativePos > totalCards / 2) relativePos -= totalCards;
+            while (relativePos < -totalCards / 2) relativePos += totalCards;
+
+            const baseRotateY = relativePos * -12;
+            const baseRotateX = -Math.abs(relativePos) * 5;
+
+            gsap.to(card, {
+                rotateY: baseRotateY,
+                rotateX: baseRotateX,
+                duration: 0.5,
+                ease: 'power2.out',
+                overwrite: 'auto'
+            });
+        });
+    });
+
     // Section Titles - Reveal Animation
     gsap.utils.toArray('.section-title').forEach(title => {
         gsap.from(title, {
