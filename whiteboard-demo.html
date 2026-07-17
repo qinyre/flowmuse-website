@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowMuse Whiteboard Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        /* Main Scaffold */
+        .scaffold {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* App Bar */
+        .app-bar {
+            height: 56px;
+            background: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .app-bar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-right: auto;
+        }
+
+        .app-bar-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: #f0f0f0;
+            color: #000;
+        }
+
+        .icon-btn.active {
+            background: #A16207;
+            color: white;
+        }
+
+        /* Editor Body */
+        .editor-body {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Canvas */
+        .editor-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            cursor: crosshair;
+        }
+
+        /* Toolbar - Top */
+        .toolbar-top {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 8px;
+            display: flex;
+            gap: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            z-index: 50;
+        }
+
+        /* Toolbar - Vertical (Left/Right) */
+        .toolbar-vertical {
+            position: absolute;
+            top: 72px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            z-index: 50;
+        }
+
+        .toolbar-vertical.left {
+            left: 12px;
+        }
+
+        .toolbar-vertical.right {
+            right: 12px;
+        }
+
+        .tool-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .tool-btn:hover {
+            background: #f5f5f5;
+            color: #000;
+        }
+
+        .tool-btn.active {
+            background: #A16207;
+            color: white;
+        }
+
+        .tool-divider {
+            width: 100%;
+            height: 1px;
+            background: #e0e0e0;
+            margin: 4px 0;
+        }
+
+        /* Property Panel */
+        .property-panel {
+            position: absolute;
+            top: 72px;
+            right: 12px;
+            width: 280px;
+            max-height: calc(100vh - 144px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            z-index: 40;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .property-panel.show {
+            display: block;
+        }
+
+        .property-section {
+            margin-bottom: 20px;
+        }
+
+        .property-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .property-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .property-control input[type="color"] {
+            width: 44px;
+            height: 44px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .property-control input[type="range"] {
+            flex: 1;
+        }
+
+        .property-control input[type="number"] {
+            width: 60px;
+            padding: 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        /* Control Group (Zoom, Undo/Redo) */
+        .control-group {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            z-index: 50;
+            display: flex;
+            gap: 4px;
+        }
+
+        .control-group.bottom-left {
+            bottom: 12px;
+            left: 12px;
+        }
+
+        .control-group.bottom-right {
+            bottom: 12px;
+            right: 12px;
+        }
+
+        .control-group.top-left {
+            top: 72px;
+            left: 12px;
+        }
+
+        .control-group.top-right {
+            top: 72px;
+            right: 12px;
+        }
+
+        /* Zoom Display */
+        .zoom-display {
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            min-width: 60px;
+        }
+
+        /* Hint */
+        .canvas-hint {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 20px;
+            background: rgba(161, 98, 7, 0.1);
+            border: 1px solid rgba(161, 98, 7, 0.3);
+            border-radius: 8px;
+            font-size: 14px;
+            color: #A16207;
+            pointer-events: none;
+            z-index: 30;
+        }
+
+        /* Save Status */
+        .save-status {
+            font-size: 13px;
+            color: #666;
+            padding: 0 12px;
+        }
+
+        .save-status.saved {
+            color: #4caf50;
+        }
+
+        .save-status.saving {
+            color: #ff9800;
+        }
+
+        /* Responsive */
+        @media (max-width: 720px) {
+            .toolbar-top {
+                left: 12px;
+                right: 12px;
+                transform: none;
+                max-width: none;
+            }
+
+            .property-panel {
+                width: calc(100% - 24px);
+                left: 12px;
+                right: 12px;
+            }
+
+            .control-group {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scaffold">
+        <!-- App Bar -->
+        <div class="app-bar">
+            <div class="app-bar-title">FlowMuse 白板</div>
+            <div class="app-bar-actions">
+                <span class="save-status saved">已保存</span>
+                <button class="icon-btn" title="导出">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <button class="icon-btn" title="分享">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="2"/>
+                        <path d="M8.7 13.7l6.6 3.6M15.3 7.3l-6.6 3.6" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Editor Body -->
+        <div class="editor-body">
+            <!-- Canvas -->
+            <canvas id="editorCanvas" class="editor-canvas"></canvas>
+
+            <!-- Toolbar Top -->
+            <div class="toolbar-top">
+                <button class="tool-btn active" data-tool="select" title="选择 (V)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="tool-btn" data-tool="rectangle" title="矩形 (R)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </button>
+                <button class="tool-btn" data-tool="ellipse" title="椭圆 (O)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </button>
+                <button class="tool-btn" data-tool="arrow" title="箭头 (A)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <button class="tool-btn" data-tool="line" title="直线 (L)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 19l14-14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <button class="tool-btn" data-tool="freedraw" title="手绘 (D)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 19l7-7 3 3-7 7-3-3z" fill="currentColor"/>
+                        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </button>
+                <button class="tool-btn" data-tool="text" title="文字 (T)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 7V4h16v3M9 20h6M12 4v16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <div class="tool-divider"></div>
+                <button class="tool-btn" data-tool="eraser" title="橡皮擦 (E)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M20 20H8l-6-6 9-9 9 9-2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <button class="tool-btn" data-tool="hand" title="平移 (H)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 11V6a1 1 0 012 0v5M11 11V4a1 1 0 012 0v7M13 11V6a1 1 0 012 0v5M15 11V8a1 1 0 012 0v10a4 4 0 01-4 4H9a4 4 0 01-4-4v-4a1 1 0 012 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Property Panel -->
+            <div class="property-panel" id="propertyPanel">
+                <div class="property-section">
+                    <div class="property-label">描边</div>
+                    <div class="property-control">
+                        <input type="color" id="strokeColor" value="#000000">
+                        <span>颜色</span>
+                    </div>
+                    <div class="property-control">
+                        <input type="range" id="strokeWidth" min="1" max="10" value="2">
+                        <input type="number" id="strokeWidthValue" min="1" max="10" value="2">
+                    </div>
+                </div>
+                <div class="property-section">
+                    <div class="property-label">填充</div>
+                    <div class="property-control">
+                        <input type="color" id="fillColor" value="#ffffff">
+                        <span>颜色</span>
+                    </div>
+                </div>
+                <div class="property-section">
+                    <div class="property-label">透明度</div>
+                    <div class="property-control">
+                        <input type="range" id="opacity" min="0" max="100" value="100">
+                        <span id="opacityValue">100%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control Group - Bottom Left (Zoom Controls) -->
+            <div class="control-group bottom-left">
+                <button class="icon-btn" id="zoomOut" title="缩小 (-)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                        <path d="M8 11h6M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <div class="zoom-display" id="zoomDisplay">100%</div>
+                <button class="icon-btn" id="zoomIn" title="放大 (+)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                        <path d="M11 8v6M8 11h6M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <button class="icon-btn" id="zoomReset" title="重置缩放 (0)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 12a9 9 0 1018 0 9 9 0 00-18 0" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Control Group - Bottom Right (Undo/Redo) -->
+            <div class="control-group bottom-right">
+                <button class="icon-btn" id="undo" title="撤销 (Ctrl+Z)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 9h10a6 6 0 016 6v0a6 6 0 01-6 6H7M3 9l6-6M3 9l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <button class="icon-btn" id="redo" title="重做 (Ctrl+Y)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M21 9H11a6 6 0 00-6 6v0a6 6 0 006 6h6M21 9l-6-6M21 9l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <button class="icon-btn" id="clear" title="清空画布">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Canvas Hint -->
+            <div class="canvas-hint" id="canvasHint">按住鼠标拖拽绘制，使用顶部工具栏切换工具 ✨</div>
+        </div>
+    </div>
+
+    <script src="whiteboard-engine.js"></script>
+</body>
+</html>

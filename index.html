@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowMuse - 自由流动的白板笔记</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="24" height="24" rx="4" stroke="currentColor" stroke-width="2"/>
+                    <path d="M10 12h12M10 16h8M10 20h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span>FlowMuse</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">功能</a>
+                <a href="#platforms">平台</a>
+                <a href="#tech">技术</a>
+                <a href="#download" class="btn-nav">立即下载</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                Markdraw 白板内核
+            </div>
+            <h1 class="hero-title">自由流动的<br><span class="hero-highlight">白板笔记</span></h1>
+            <p class="hero-subtitle">自研 Markdraw 引擎 · 兼容 Excalidraw 格式<br>跨全平台同步 · 实时协作 · 手写压感</p>
+            <div class="hero-actions">
+                <a href="#download" class="btn-primary">
+                    <span>开始使用</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M7 10h6m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </a>
+                <a href="https://github.com" class="btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 1.667A8.333 8.333 0 001.667 10c0 3.683 2.391 6.808 5.708 7.908.417.075.583-.183.583-.4v-1.392c-2.316.5-2.808-1.116-2.808-1.116-.383-.966-.933-1.225-.933-1.225-.767-.525.058-.516.058-.516.842.058 1.283.866 1.283.866.75 1.283 1.967.916 2.45.7.075-.55.292-.917.533-1.125-1.867-.208-3.833-.933-3.833-4.15 0-.917.333-1.667.866-2.258-.083-.209-.375-1.05.084-2.184 0 0 .708-.225 2.317.867a7.958 7.958 0 012.1-.283c.716.008 1.441.1 2.1.283 1.608-1.092 2.316-.867 2.316-.867.459 1.134.167 1.975.084 2.184.533.591.866 1.341.866 2.258 0 3.225-1.975 3.933-3.85 4.142.3.258.575.758.575 1.533v2.275c0 .217.158.475.583.392A8.336 8.336 0 0018.333 10 8.333 8.333 0 0010 1.667z" fill="currentColor"/>
+                    </svg>
+                    <span>GitHub</span>
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">6+</div>
+                    <div class="stat-label">平台支持</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">实时</div>
+                    <div class="stat-label">协作同步</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">开源</div>
+                    <div class="stat-label">数据格式</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="whiteboard-mockup">
+                <!-- App Bar -->
+                <div class="wb-app-bar">
+                    <div class="wb-app-title">无标题笔记</div>
+                    <div class="wb-app-actions">
+                        <span class="wb-save-status">已保存</span>
+                        <button class="wb-icon-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                <circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Canvas Area -->
+                <div class="wb-canvas">
+                    <div class="wb-grid"></div>
+
+                    <!-- Toolbar -->
+                    <div class="wb-toolbar">
+                        <button class="wb-tool active">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                        <button class="wb-tool">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                        <button class="wb-tool">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                        <button class="wb-tool">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                        <button class="wb-tool">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 19l7-7 3 3-7 7-3-3z" fill="currentColor"/>
+                                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                        <div class="wb-divider"></div>
+                        <button class="wb-tool">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M4 7V4h16v3M9 20h6M12 4v16" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Drawing -->
+                    <svg class="wb-drawing" viewBox="0 0 600 400">
+                        <defs>
+                            <linearGradient id="wb-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#4F8F84"/>
+                                <stop offset="100%" stop-color="#5D91B8"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="80" y="100" width="140" height="90" rx="8"
+                              stroke="url(#wb-grad)" stroke-width="2.5" fill="rgba(79, 143, 132, 0.08)"/>
+                        <circle cx="400" cy="150" r="60"
+                                stroke="url(#wb-grad)" stroke-width="2.5" fill="rgba(93, 145, 184, 0.08)"/>
+                        <path d="M 220 145 L 340 145 M 333 138 L 340 145 L 333 152"
+                              stroke="url(#wb-grad)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                        <path d="M 100 240 Q 150 200 200 240 T 300 240"
+                              stroke="url(#wb-grad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    </svg>
+
+                    <!-- Controls -->
+                    <div class="wb-controls">
+                        <button class="wb-control-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                <path d="M3 9h10a6 6 0 016 6v0a6 6 0 01-6 6H7M3 9l6-6M3 9l6 6" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                        <button class="wb-control-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                <path d="M21 9H11a6 6 0 00-6 6v0a6 6 0 006 6h6M21 9l-6-6M21 9l-6 6" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="wb-zoom">100%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value">Dart</div>
+            <div class="stat-label">纯 Dart 内核</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-value">跨端</div>
+            <div class="stat-label">Flutter + OHOS</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-value">兼容</div>
+            <div class="stat-label">Excalidraw 格式</div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">核心能力</span>
+                <h2 class="section-title">为创作而生</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card feature-highlight">
+                    <div class="feature-icon feature-icon-large">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2V3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7V3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Markdraw 白板引擎</h3>
+                    <p class="feature-desc">纯 Dart 实现的白板内核，完整控制输入、渲染、撤销重做。兼容 Excalidraw 数据格式，支持自由扩展和跨平台适配。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">资料库统一管理</h3>
+                    <p class="feature-desc">LibraryIndex 单一数据源，笔记、笔记本、标签自动同步更新</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+                            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">实时协作</h3>
+                    <p class="feature-desc">增量同步变化元素，高频帧智能合并，多人编辑流畅跟手</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M12 19l7-7 3 3-7 7-3-3z" fill="currentColor"/>
+                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 2l7.586 7.586" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="11" cy="11" r="2" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">手写压感</h3>
+                    <p class="feature-desc">鸿蒙手写笔压感适配，原生文件能力，跨平台体验一致</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">WebDAV 同步</h3>
+                    <p class="feature-desc">支持私有云备份，数据完全掌控，多设备无缝衔接</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">高性能渲染</h3>
+                    <p class="feature-desc">分层状态管理，高频编辑与业务逻辑分离，保持流畅</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platforms Section -->
+    <section id="platforms" class="platforms">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">全平台覆盖</span>
+                <h2 class="section-title">一处创作，随处访问</h2>
+                <p class="section-subtitle">基于 Flutter 构建，原生支持 Android、iOS、macOS、Windows、Web 和 HarmonyOS</p>
+            </div>
+            <div class="platforms-grid">
+                <div class="platform-card">
+                    <div class="platform-icon">
+                        <span class="iconify" data-icon="simple-icons:android" data-width="36" data-height="36"></span>
+                    </div>
+                    <div class="platform-name">Android</div>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">
+                        <span class="iconify" data-icon="simple-icons:apple" data-width="36" data-height="36"></span>
+                    </div>
+                    <div class="platform-name">macOS / iOS</div>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">
+                        <span class="iconify" data-icon="simple-icons:windows" data-width="36" data-height="36"></span>
+                    </div>
+                    <div class="platform-name">Windows</div>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">
+                        <span class="iconify" data-icon="mdi:web" data-width="36" data-height="36"></span>
+                    </div>
+                    <div class="platform-name">Web</div>
+                </div>
+                <div class="platform-card platform-highlight">
+                    <div class="platform-icon">
+                        <span class="iconify" data-icon="simple-icons:huawei" data-width="36" data-height="36"></span>
+                    </div>
+                    <div class="platform-name">HarmonyOS</div>
+                    <div class="platform-badge">原生优化</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Section -->
+    <section id="tech" class="tech">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">技术架构</span>
+                <h2 class="section-title">为什么自研 Markdraw？</h2>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-number">01</div>
+                    <h3 class="tech-item-title">跨端适配需求</h3>
+                    <p class="tech-item-desc">Excalidraw 基于 Web/React 生态，无法直接解决 Flutter 跨平台和鸿蒙手写笔压感问题</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-number">02</div>
+                    <h3 class="tech-item-title">性能优化</h3>
+                    <p class="tech-item-desc">分层状态管理：ChangeNotifier 处理高频编辑，Riverpod 管理业务逻辑，编辑流畅不卡顿</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-number">03</div>
+                    <h3 class="tech-item-title">协作调度</h3>
+                    <p class="tech-item-desc">增量同步变化元素而非全场景，高频书写帧合并，完整场景仅用于初始化和快照恢复</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-number">04</div>
+                    <h3 class="tech-item-title">数据开放</h3>
+                    <p class="tech-item-desc">保持 Excalidraw JSON 格式兼容，用户数据不被锁定，可自由导入导出</p>
+                </div>
+            </div>
+            <div class="tech-stack">
+                <div class="stack-badge">Flutter</div>
+                <div class="stack-badge">Dart</div>
+                <div class="stack-badge">Riverpod</div>
+                <div class="stack-badge">SQLite</div>
+                <div class="stack-badge">WebDAV</div>
+                <div class="stack-badge">Excalidraw</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download">
+        <div class="container">
+            <div class="download-content">
+                <h2 class="download-title">准备好开始了吗？</h2>
+                <p class="download-subtitle">立即下载 FlowMuse，体验自由流动的白板创作</p>
+                <div class="download-buttons">
+                    <a href="#" class="btn-download">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>下载应用</span>
+                    </a>
+                    <a href="#" class="btn-download-alt">
+                        <span>在线使用</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7 10h6m0 0l-3-3m3 3l-3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect x="4" y="4" width="24" height="24" rx="4" stroke="currentColor" stroke-width="2"/>
+                            <path d="M10 12h12M10 16h8M10 20h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>FlowMuse</span>
+                    </div>
+                    <p class="footer-tagline">自由流动的白板笔记</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-group">
+                        <h4>产品</h4>
+                        <a href="#features">功能特性</a>
+                        <a href="#platforms">支持平台</a>
+                        <a href="#download">立即下载</a>
+                    </div>
+                    <div class="footer-group">
+                        <h4>技术</h4>
+                        <a href="#tech">技术架构</a>
+                        <a href="https://github.com">GitHub</a>
+                        <a href="#">API 文档</a>
+                    </div>
+                    <div class="footer-group">
+                        <h4>资源</h4>
+                        <a href="#">使用指南</a>
+                        <a href="#">常见问题</a>
+                        <a href="#">社区</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 FlowMuse. 基于 Flutter 构建.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
