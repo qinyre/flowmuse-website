@@ -35,6 +35,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     animateGlow();
 
+    // Split flow text into individual characters
+    const flowTextElement = document.querySelector('.flow-text');
+    if (flowTextElement) {
+        const text = flowTextElement.getAttribute('data-flow-text');
+        flowTextElement.innerHTML = text.split('').map((char, index) =>
+            `<span class="flow-char" style="display: inline-block;">${char}</span>`
+        ).join('');
+
+        // Animate each character with wave effect
+        const flowChars = flowTextElement.querySelectorAll('.flow-char');
+        gsap.to(flowChars, {
+            y: -15,
+            duration: 1.5,
+            ease: 'sine.inOut',
+            stagger: {
+                each: 0.1,
+                repeat: -1,
+                yoyo: true
+            }
+        });
+
+        // Add flowing opacity effect
+        gsap.to(flowChars, {
+            opacity: 0.7,
+            duration: 2,
+            ease: 'sine.inOut',
+            stagger: {
+                each: 0.15,
+                repeat: -1,
+                yoyo: true
+            }
+        });
+    }
+
     // Set initial state
     gsap.set(['.hero-badge', '.hero-title', '.hero-subtitle', '.hero-actions', '.hero-stats'], {
         opacity: 0,
