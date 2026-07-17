@@ -110,30 +110,192 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Platform Cards - Bounce on Hover
     const platformCards = document.querySelectorAll('.platform-card');
-    platformCards.forEach(card => {
+    console.log('Found platform cards:', platformCards.length); // 调试日志
+
+    platformCards.forEach((card, index) => {
+        // 持续悬浮动画
+        gsap.to(card, {
+            y: -10,
+            duration: 2 + index * 0.3,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+            delay: index * 0.2
+        });
+
+        // 为每个图标添加旋转计数器
+        const icon = card.querySelector('.platform-icon');
+        console.log('Card', index, 'icon:', icon); // 调试日志
+        let rotationCount = 0;
+
+        // 鼠标悬停 - 3D 倾斜 + 放大
         card.addEventListener('mouseenter', () => {
             gsap.to(card, {
-                y: -20,
+                scale: 1.1,
+                z: 50,
                 duration: 0.4,
                 ease: 'back.out(2)'
             });
 
-            const icon = card.querySelector('.platform-icon');
-            gsap.to(icon, {
-                rotation: 360,
-                duration: 0.6,
-                ease: 'power2.out'
-            });
+            // HarmonyOS 高亮卡片特殊效果
+            if (card.classList.contains('platform-highlight')) {
+                gsap.to(card, {
+                    boxShadow: '0 35px 80px -15px rgba(161, 98, 7, 0.6), 0 0 0 3px rgba(161, 98, 7, 0.5)',
+                    duration: 0.3
+                });
+            }
         });
 
         card.addEventListener('mouseleave', () => {
             gsap.to(card, {
-                y: 0,
-                duration: 0.3,
+                scale: 1,
+                z: 0,
+                rotateY: 0,
+                rotateX: 0,
+                duration: 0.4,
                 ease: 'power2.inOut'
             });
+
+            if (card.classList.contains('platform-highlight')) {
+                gsap.to(card, {
+                    boxShadow: '0 20px 50px -10px rgba(161, 98, 7, 0.35), 0 0 0 1px rgba(161, 98, 7, 0.3)',
+                    duration: 0.3
+                });
+            }
+        });
+
+        // 鼠标移动时 3D 倾斜跟随
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const deltaX = (x - centerX) / centerX;
+            const deltaY = (y - centerY) / centerY;
+
+            gsap.to(card, {
+                rotateY: deltaX * 20,
+                rotateX: -deltaY * 20,
+                duration: 0.3,
+                ease: 'power2.out',
+                overwrite: 'auto'
+            });
+        });
+
+        // 点击图标快速旋转
+        if (icon) {
+            icon.style.cursor = 'pointer';
+            console.log('Adding click listener to icon', index); // 确认监听器被添加
+
+            icon.addEventListener('click', (e) => {
+                e.stopPropagation(); // 阻止事件冒泡到卡片
+                e.preventDefault(); // 阻止默认行为
+
+                console.log('Icon clicked!', icon); // 调试日志
+
+                // 增加旋转计数
+                rotationCount++;
+
+                // 快速旋转 360 度 - 旋转整个 icon 容器
+                gsap.to(icon, {
+                    rotation: `+=${360}`,
+                    scale: 1.3,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                    onStart: () => console.log('Rotation started'),
+                    onComplete: () => console.log('Rotation completed')
+                });
+
+                // 恢复缩放
+                gsap.to(icon, {
+                    scale: 1,
+                    duration: 0.3,
+                    delay: 0.5,
+                    ease: 'power2.inOut'
+                });
+
+                // 卡片震动效果
+                gsap.fromTo(card,
+                    { x: -5 },
+                    {
+                        x: 5,
+                        duration: 0.05,
+                        repeat: 5,
+                        yoyo: true,
+                        ease: 'power1.inOut',
+                        onComplete: () => {
+                            gsap.to(card, { x: 0, duration: 0.1 });
+                        }
+                    }
+                );
+            }, true); // 使用捕获阶段
+        }
+
+        // 点击卡片涟漪效果
+        card.addEventListener('click', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // 创建涟漪元素
+            const ripple = document.createElement('div');
+            ripple.style.position = 'absolute';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.style.width = '0px';
+            ripple.style.height = '0px';
+            ripple.style.borderRadius = '50%';
+            ripple.style.background = 'rgba(161, 98, 7, 0.3)';
+            ripple.style.transform = 'translate(-50%, -50%)';
+            ripple.style.pointerEvents = 'none';
+            card.style.position = 'relative';
+            card.style.overflow = 'hidden';
+            card.appendChild(ripple);
+
+            gsap.to(ripple, {
+                width: 300,
+                height: 300,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+                onComplete: () => ripple.remove()
+            });
+
+            // 卡片弹跳
+            gsap.fromTo(card,
+                { scale: 0.95 },
+                {
+                    scale: 1.1,
+                    duration: 0.4,
+                    ease: 'back.out(3)'
+                }
+            );
         });
     });
+
+    // HarmonyOS 高亮卡片光晕脉冲
+    const harmonyCard = document.querySelector('.platform-highlight');
+    if (harmonyCard) {
+        gsap.to(harmonyCard, {
+            boxShadow: '0 25px 60px -12px rgba(161, 98, 7, 0.45), 0 0 0 1px rgba(161, 98, 7, 0.35)',
+            duration: 2,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+        });
+
+        const badge = harmonyCard.querySelector('.platform-badge');
+        if (badge) {
+            gsap.to(badge, {
+                scale: 1.05,
+                duration: 1.5,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
+            });
+        }
+    }
 
     // Buttons - Elastic Press Effect
     const buttons = document.querySelectorAll('.btn-primary, .btn-secondary, .btn-download, .btn-download-alt');
@@ -884,13 +1046,16 @@ gsap.from('.hero-stats .stat', {
 });
 
 // Hero Visual Animation
-gsap.from('.canvas-preview', {
-    opacity: 0,
-    scale: 0.95,
-    duration: 1.2,
-    ease: 'power3.out',
-    delay: 0.5
-});
+const canvasPreview = document.querySelector('.canvas-preview');
+if (canvasPreview) {
+    gsap.from(canvasPreview, {
+        opacity: 0,
+        scale: 0.95,
+        duration: 1.2,
+        ease: 'power3.out',
+        delay: 0.5
+    });
+}
 
 // Scroll Animations - Features
 gsap.utils.toArray('.feature-card').forEach((card, index) => {

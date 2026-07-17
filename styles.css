@@ -792,7 +792,8 @@ body {
     background: linear-gradient(135deg, rgba(161, 98, 7, 0.1), rgba(202, 138, 4, 0.05));
     border-radius: var(--radius-lg);
     color: var(--color-accent);
-    transition: all 0.3s;
+    /* transition 被移除，让 GSAP 完全控制动画 */
+}
 }
 
 .platform-icon svg {
