@@ -3,6 +3,38 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
+    // Create cursor glow effect
+    const cursorGlow = document.createElement('div');
+    cursorGlow.className = 'cursor-glow';
+    document.body.appendChild(cursorGlow);
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let glowX = 0;
+    let glowY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursorGlow.style.opacity = '1';
+    });
+
+    document.addEventListener('mouseleave', () => {
+        cursorGlow.style.opacity = '0';
+    });
+
+    // Smooth cursor glow follow
+    function animateGlow() {
+        glowX += (mouseX - glowX) * 0.1;
+        glowY += (mouseY - glowY) * 0.1;
+
+        cursorGlow.style.left = glowX + 'px';
+        cursorGlow.style.top = glowY + 'px';
+
+        requestAnimationFrame(animateGlow);
+    }
+    animateGlow();
+
     // Set initial state
     gsap.set(['.hero-badge', '.hero-title', '.hero-subtitle', '.hero-actions', '.hero-stats'], {
         opacity: 0,
@@ -85,6 +117,53 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: 0.8,
         delay: 1.6,
         ease: 'power2.out'
+    });
+
+    // Scroll-triggered animations for feature cards
+    gsap.utils.toArray('.feature-card').forEach((card, index) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: card,
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            delay: index * 0.1,
+            ease: 'power3.out'
+        });
+    });
+
+    // Scroll-triggered animations for platform cards
+    gsap.utils.toArray('.platform-card').forEach((card, index) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: card,
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.6,
+            delay: index * 0.1,
+            ease: 'back.out(1.7)'
+        });
+    });
+
+    // Stats animation
+    gsap.utils.toArray('.stat-value').forEach((stat) => {
+        gsap.from(stat, {
+            scrollTrigger: {
+                trigger: stat,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 0,
+            scale: 0.5,
+            duration: 0.8,
+            ease: 'back.out(1.7)'
+        });
     });
 });
 
