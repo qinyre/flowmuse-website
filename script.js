@@ -457,24 +457,13 @@ function initWhiteboardTools() {
 
 // ============================================================
 // Whiteboard Drawing - SVG 形状入场
+// 注意:hero 白板里的 rect/circle/path 由 initHeroEntrance() 的
+// 入场 timeline 统一驱动,这里不再单独挂 ScrollTrigger。
+// (hero 是首屏,ScrollTrigger.start 已过,onEnter 不会自动触发,
+//  会和 hero timeline 抢 opacity 属性导致形状卡在透明。)
 // ============================================================
 function initWhiteboardDrawing() {
-    const wbDrawing = document.querySelector('.wb-drawing');
-    if (!wbDrawing || prefersReducedMotion) return;
-    const shapes = wbDrawing.querySelectorAll('rect, circle, path');
-    gsap.set(shapes, { opacity: 0, scale: 0.5 });
-    gsap.to(shapes, {
-        scrollTrigger: {
-            trigger: wbDrawing,
-            start: 'top 70%',
-            toggleActions: 'play none none reverse',
-        },
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'back.out(1.7)',
-    });
+    // no-op —— 入场动画交给 initHeroEntrance()
 }
 
 // ============================================================
@@ -857,10 +846,23 @@ function initHeroEntrance() {
       .from('.hero-subtitle', { opacity: 0, y: 30, duration: 0.8 }, '-=0.5')
       .from('.hero-actions', { opacity: 0, y: 30, duration: 0.8 }, '-=0.4')
       .from('.hero-stats .stat', { opacity: 0, y: 20, duration: 0.6, stagger: 0.1 }, '-=0.4')
-      .from('.whiteboard-mockup', { opacity: 0, scale: 0.95, duration: 1.2 }, '-=1')
-      .from('.wb-drawing rect', { opacity: 0, scale: 0.8, duration: 0.8, ease: 'back.out(1.5)' }, '-=0.4')
-      .from('.wb-drawing circle', { opacity: 0, scale: 0.8, duration: 0.8, ease: 'back.out(1.5)' }, '-=0.6')
-      .from('.wb-drawing path', { opacity: 0, duration: 0.8 }, '-=0.5');
+      .from('.whiteboard-mockup', { opacity: 0, scale: 0.95, duration: 1.2 }, '-=1');
+
+    // SVG 形状(rect/circle/path)单独做入场,带 clearProps 确保
+    // 动画结束后 opacity/scale 清回 CSS 默认值,即使中间有任何
+    // 中断或后续 mousemove 监听器改了 transform,最终也保持可见。
+    tl.from('.wb-drawing rect', {
+        opacity: 0, scale: 0.8, duration: 0.8, ease: 'back.out(1.5)',
+        clearProps: 'opacity,scale',
+    }, '-=0.4')
+      .from('.wb-drawing circle', {
+          opacity: 0, scale: 0.8, duration: 0.8, ease: 'back.out(1.5)',
+          clearProps: 'opacity,scale',
+      }, '-=0.6')
+      .from('.wb-drawing path', {
+          opacity: 0, duration: 0.8,
+          clearProps: 'opacity',
+      }, '-=0.5');
 
     // Hero parallax
     gsap.to('.hero-visual', {
