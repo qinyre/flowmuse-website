@@ -41,6 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initNavbarOnScroll();
     initFooterYear();
+    initFaqAccordion();
+    initProjectStats();
 
     // 字体/图片加载后位置会变,refresh 一次保证 ScrollTrigger 算准
     if (document.fonts && document.fonts.ready) {
@@ -938,6 +940,105 @@ function initFooterYear() {
     if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
     }
+}
+
+// ============================================================
+// FAQ 手风琴 —— 可折叠问答
+// ============================================================
+function initFaqAccordion() {
+    const items = document.querySelectorAll('.faq-item');
+    if (!items.length) return;
+
+    items.forEach((item) => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        if (!question || !answer) return;
+
+        // 初始:答案高度 0,先设好过渡
+        gsap.set(answer, { height: 0, autoAlpha: 0, overflow: 'hidden' });
+
+        question.addEventListener('click', () => {
+            const isOpen = item.classList.contains('faq-open');
+
+            // 关闭其他打开的(手风琴行为,一次只展开一个)
+            items.forEach((other) => {
+                if (other !== item && other.classList.contains('faq-open')) {
+                    other.classList.remove('faq-open');
+                    const otherAnswer = other.querySelector('.faq-answer');
+                    if (otherAnswer) {
+                        gsap.to(otherAnswer, {
+                            height: 0, autoAlpha: 0,
+                            duration: 0.4, ease: 'power2.inOut',
+                        });
+                    }
+                }
+            });
+
+            if (isOpen) {
+                item.classList.remove('faq-open');
+                gsap.to(answer, {
+                    height: 0, autoAlpha: 0,
+                    duration: 0.4, ease: 'power2.inOut',
+                });
+            } else {
+                item.classList.add('faq-open');
+                // autoAlpha 先变可见再展开高度,避免跳变
+                gsap.to(answer, {
+                    height: 'auto', autoAlpha: 1,
+                    duration: 0.5, ease: 'power3.out',
+                });
+            }
+        });
+    });
+
+    // FAQ 入场动画 —— ScrollTrigger.batch 让同屏的问答一起淡入
+    if (!prefersReducedMotion) {
+        gsap.set('.faq-item', { opacity: 0, y: 20 });
+        ScrollTrigger.batch('.faq-item', {
+            start: 'top 88%',
+            onEnter: (batch) => gsap.to(batch, {
+                opacity: 1, y: 0,
+                duration: 0.6, stagger: 0.08, ease: 'power3.out',
+                overwrite: true,
+            }),
+            onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 20 }),
+        });
+    }
+}
+
+// ============================================================
+// 项目数据墙 —— 真实代码统计 + count-up
+// ============================================================
+function initProjectStats() {
+    const stats = document.querySelectorAll('[data-stat-target]');
+    if (!stats.length) return;
+
+    stats.forEach((stat) => {
+        const target = parseFloat(stat.dataset.statTarget);
+        const suffix = stat.dataset.statSuffix || '';
+        const decimals = parseInt(stat.dataset.statDecimals || '0', 10);
+        if (isNaN(target)) return;
+
+        const counter = { value: 0 };
+        gsap.to(counter, {
+            value: target,
+            duration: 2,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: stat,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse',
+            },
+            onUpdate: () => {
+                const v = counter.value.toFixed(decimals);
+                // 加千分位分隔
+                const formatted = decimals > 0
+                    ? parseFloat(v).toLocaleString('en-US', { minimumFractionDigits: decimals })
+                    : Math.ceil(counter.value).toLocaleString('en-US');
+                stat.textContent = formatted + suffix;
+            },
+        });
+    });
 }
 
 // ============================================================

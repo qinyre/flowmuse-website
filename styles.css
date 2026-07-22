@@ -1575,3 +1575,201 @@ nav a:hover::after {
         height: 42px;
     }
 }
+
+/* ========================================
+   FAQ 手风琴
+   ======================================== */
+
+.faq-section {
+    padding: var(--space-3xl) 0;
+    background: var(--color-bg);
+}
+
+.faq-list {
+    max-width: 760px;
+    margin: var(--space-2xl) auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.faq-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: rgba(5, 150, 105, 0.3);
+}
+
+.faq-item.faq-open {
+    border-color: rgba(5, 150, 105, 0.5);
+    box-shadow: 0 10px 30px -10px rgba(5, 150, 105, 0.2);
+}
+
+.faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    font-family: inherit;
+    transition: color 0.2s ease;
+}
+
+.faq-question:hover {
+    color: var(--color-accent);
+}
+
+.faq-question-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.faq-item.faq-open .faq-question-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    /* 高度由 GSAP 控制,这里只负责内边距和样式 */
+    padding: 0 1.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+}
+
+.faq-answer-inner {
+    padding-bottom: 1.25rem;
+}
+
+.faq-answer-inner code {
+    background: rgba(5, 150, 105, 0.08);
+    color: var(--color-accent);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+}
+
+.faq-answer-inner strong {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+/* ========================================
+   项目数据墙
+   ======================================== */
+
+.project-stats-section {
+    padding: var(--space-3xl) 0;
+    background:
+        linear-gradient(135deg, #064e3b 0%, #047857 50%, #065f46 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 背景装饰:几个浮动的圆光晕 */
+.project-stats-section::before,
+.project-stats-section::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.project-stats-section::before {
+    width: 400px;
+    height: 400px;
+    background: rgba(16, 185, 129, 0.4);
+    top: -100px;
+    left: -100px;
+}
+
+.project-stats-section::after {
+    width: 500px;
+    height: 500px;
+    background: rgba(5, 150, 105, 0.3);
+    bottom: -150px;
+    right: -150px;
+}
+
+.project-stats-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-2xl);
+}
+
+.project-stat-card {
+    text-align: center;
+    padding: var(--space-lg) var(--space-md);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    transition: all 0.3s ease;
+}
+
+.project-stat-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-4px);
+}
+
+.project-stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, #a7f3d0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-variant-numeric: tabular-nums;
+}
+
+.project-stat-label {
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+
+.project-stats-section .section-tag {
+    background: rgba(255, 255, 255, 0.15);
+    color: #a7f3d0;
+}
+
+.project-stats-section .section-title {
+    color: white;
+}
+
+.project-stats-section .section-subtitle {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+@media (max-width: 720px) {
+    .project-stat-value {
+        font-size: 2rem;
+    }
+}

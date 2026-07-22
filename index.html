@@ -26,6 +26,7 @@
                 <a href="#features">功能</a>
                 <a href="#platforms">平台</a>
                 <a href="#tech">技术</a>
+                <a href="#faq">问答</a>
                 <a href="#download" class="btn-nav">立即下载</a>
             </div>
         </div>
@@ -427,6 +428,164 @@
                 <div class="stack-badge">Go</div>
                 <div class="stack-badge">Excalidraw</div>
                 <div class="stack-badge">HarmonyOS</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Stats Section -->
+    <section id="stats" class="project-stats-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">用数字说话</span>
+                <h2 class="section-title">一行行写出来的</h2>
+                <p class="section-subtitle">从 2024 年实训启动至今,真实统计。没有营销水分。</p>
+            </div>
+            <div class="project-stats-grid">
+                <div class="project-stat-card">
+                    <div class="project-stat-value" data-stat-target="68248" data-stat-suffix="+">0</div>
+                    <div class="project-stat-label">行 Dart 业务代码</div>
+                </div>
+                <div class="project-stat-card">
+                    <div class="project-stat-value" data-stat-target="6485" data-stat-suffix="+">0</div>
+                    <div class="project-stat-label">行测试代码</div>
+                </div>
+                <div class="project-stat-card">
+                    <div class="project-stat-value" data-stat-target="343" data-stat-suffix="+">0</div>
+                    <div class="project-stat-label">个 Dart 源文件</div>
+                </div>
+                <div class="project-stat-card">
+                    <div class="project-stat-value" data-stat-target="554" data-stat-suffix="+">0</div>
+                    <div class="project-stat-label">次代码提交</div>
+                </div>
+                <div class="project-stat-card">
+                    <div class="project-stat-value" data-stat-target="6" data-stat-suffix="">0</div>
+                    <div class="project-stat-label">个原生平台</div>
+                </div>
+                <div class="project-stat-card">
+                    <div class="project-stat-value" data-stat-target="5" data-stat-suffix="">0</div>
+                    <div class="project-stat-label">位核心贡献者</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">常见疑问</span>
+                <h2 class="section-title">你可能想问的</h2>
+                <p class="section-subtitle">还没解决?欢迎到 GitHub Discussions 继续聊。</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" type="button">
+                        <span>数据真的端到端加密吗?服务器看不到内容?</span>
+                        <span class="faq-question-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            是的。协作房间链接里携带 <code>roomId</code> 和 <code>roomKey</code>,密钥从不出客户端。
+                            所有实时消息和快照用 <strong>AES-GCM-128</strong> 加密后发到服务器,服务器只看到密文,
+                            永远无法解密还原内容。Socket.IO 只广播版本号和增量元素,服务端是零知识中转。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button">
+                        <span>支持 Apple Pencil / 华为手写笔的压感吗?</span>
+                        <span class="faq-question-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            鸿蒙端通过 Platform Channel 接入 <strong>Pen Kit 全局取色</strong>和<strong>手写笔原生压感</strong>,
+                            铅笔着色器模拟纸质纹理。iOS / Android 端通过 Flutter 的 PointerEvent 读取压感数据
+                            (Apple Pencil 通过 UITouchType.Pencil,Android 通过 MotionEvent.getPressure)。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button">
+                        <span>没网的时候能用吗?</span>
+                        <span class="faq-question-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            可以,而且这是设计目标。所有笔记存本地 <strong>SQLite</strong> 数据库,无服务端也能完整书写、
+                            编辑、撤销重做。LibraryIndex 是单一数据源。需要同步时再连接协作服务或 WebDAV 云备份。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button">
+                        <span>和 Excalidraw 兼容到什么程度?</span>
+                        <span class="faq-question-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            保持 Excalidraw JSON 格式兼容,用户数据不被锁定。支持 <code>.markdraw</code> 和
+                            <code>.excalidraw</code> 双格式导入导出。这意味着你可以在 Excalidraw 网页版打开
+                            FlowMuse 的笔记,也可以把 Excalidraw 的场景直接拖进 FlowMuse 继续编辑。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button">
+                        <span>鸿蒙端和其他平台功能一样吗?</span>
+                        <span class="faq-question-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            核心编辑能力完全一致(一份 Dart 代码)。鸿蒙端额外做了原生适配:
+                            <strong>手写笔压感</strong>、<strong>Pen Kit 全局取色</strong>、
+                            <strong>原生 HTTP / PDF 渲染</strong>、<strong>语音识别</strong>和
+                            <strong>桌面服务卡片</strong>(从卡片可直接进入上次笔记)。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button">
+                        <span>AI 手写识别是怎么工作的?数据上传吗?</span>
+                        <span class="faq-question-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            三平台实现策略不同。<strong>Android</strong> 端用 <code>sherpa-onnx</code> 离线模型,
+                            笔迹特征完全在设备上推理,不上传。<strong>Web</strong> 端用浏览器原生 Web Speech API。
+                            <strong>鸿蒙</strong> 端通过原生 MethodChannel 调系统 ASR。文本类识别走 OpenAI 兼容
+                            Function Calling,会调用你配置的 API,但只在用户主动触发 AI 笔记助手时。
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
