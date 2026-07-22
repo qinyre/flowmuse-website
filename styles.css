@@ -217,10 +217,29 @@ body {
 }
 
 .hero-highlight {
-    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+    /* 流光渐变:放大背景 + 横向 background-position 动画
+       使用 --color-accent → 白 → --color-accent-light 三段,
+       营造"光从左扫到右"的效果。 */
+    background: linear-gradient(
+        100deg,
+        var(--color-accent) 0%,
+        var(--color-accent) 35%,
+        #5eead4 50%,
+        var(--color-accent-light) 65%,
+        var(--color-accent-light) 100%
+    );
+    background-size: 250% 100%;
+    background-position: 100% 0;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: heroShine 6s ease-in-out infinite;
+}
+
+@keyframes heroShine {
+    0%   { background-position: 100% 0; }
+    50%  { background-position: 0% 0; }
+    100% { background-position: 100% 0; }
 }
 
 .hero-subtitle {
@@ -827,7 +846,6 @@ body {
     color: var(--color-accent);
     /* transition 被移除，让 GSAP 完全控制动画 */
 }
-}
 
 .platform-icon svg {
     width: 36px;
@@ -1417,10 +1435,9 @@ body::before {
     50% { background-position: 100% 50%; }
 }
 
-/* Hero Title Glow */
+/* Hero Title Glow(配合上面的流光渐变,position:relative 用于内部装饰元素定位) */
 .hero-highlight {
     position: relative;
-    text-shadow: 0 0 30px rgba(5, 150, 105, 0.3);
 }
 
 /* Section Tag Pulse */
@@ -1476,4 +1493,85 @@ nav a::after {
 
 nav a:hover::after {
     width: 100%;
+}
+
+/* ========================================
+   新增交互元素:Scroll Progress / Back-to-Top
+   ======================================== */
+
+/* 顶部滚动进度条
+   —— 固定在 viewport 顶部,JS 里用 ScrollTrigger.scrub 驱动 scaleX 0→1。
+   transform-origin: left 让它从左边长出来。
+   只在 prefers-reduced-motion: no-preference 时显示。 */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    transform-origin: left center;
+    transform: scaleX(0);
+    background: linear-gradient(
+        90deg,
+        var(--color-accent) 0%,
+        var(--color-accent-light) 50%,
+        #5eead4 100%
+    );
+    z-index: 10000;
+    pointer-events: none;
+    box-shadow: 0 0 8px rgba(5, 150, 105, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-progress { display: none; }
+}
+
+/* 返回顶部按钮
+   —— 默认 autoAlpha:0(JS 控制),滚动 400px 后浮现。
+   固定在右下,圆形悬浮,带阴影。 */
+.back-to-top {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 10px 25px -5px rgba(5, 150, 105, 0.5),
+        0 0 0 1px rgba(5, 150, 105, 0.3);
+    z-index: 9998;
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
+    /* visibility 和 opacity 由 GSAP autoAlpha 控制 */
+}
+
+.back-to-top:hover {
+    transform: translateY(-4px) scale(1.08);
+    box-shadow:
+        0 18px 35px -8px rgba(5, 150, 105, 0.6),
+        0 0 0 2px rgba(5, 150, 105, 0.5);
+}
+
+.back-to-top:active {
+    transform: translateY(-2px) scale(0.96);
+}
+
+.back-to-top:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+    .back-to-top {
+        right: 1rem;
+        bottom: 1rem;
+        width: 42px;
+        height: 42px;
+    }
 }
