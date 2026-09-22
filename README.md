@@ -110,9 +110,10 @@ FlowMuse 产品本身的许可证请参考主项目仓库。
 
 ## 🔗 相关链接
 
-- [FlowMuse 主项目](https://github.com/your-org/flowmuse)
-- [在线预览](https://flowmuse.example.com)
-- [文档中心](https://docs.flowmuse.example.com)
+- [FlowMuse 主项目](https://github.com/qinyre/FlowMuse)
+- [官方网站](https://flowmuse.cloud)
+- [在线使用](https://app.flowmuse.cloud)
+- [项目文档](https://github.com/qinyre/FlowMuse#readme)
 
 ---
 
