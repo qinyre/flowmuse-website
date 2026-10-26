@@ -4,11 +4,13 @@ import {fileURLToPath} from 'node:url';
 import {resolve, dirname} from 'node:path';
 import vm from 'node:vm';
 import test from 'node:test';
+import {createHash} from 'node:crypto';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const html = readFileSync(resolve(root, 'index.html'), 'utf8');
 const css = readFileSync(resolve(root, 'styles.css'), 'utf8');
 const script = readFileSync(resolve(root, 'script.js'), 'utf8');
+const motion = readFileSync(resolve(root, 'motion.js'), 'utf8');
 
 test('首页的锚点、SVG 引用、图片、字体和本地链接均有真实目标', () => {
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]);
@@ -115,4 +117,30 @@ test('保留协议和历史演示路径，页面不再将网页版标成安装�
   assert.match(html, /安装包尚未/);
   assert.match(html, /https:\/\/app\.flowmuse\.cloud\/library/);
   assert.doesNotMatch(html, /data-stat-target|1 秒自动识别|Web Speech API|sh(erpa|erpa-onnx)/);
+});
+
+test('原版 GSAP 与 ScrollTrigger 自托管、版权保留且加载顺序正确', () => {
+  const files = {
+    'gsap.min.js': '28033e449a31ebcc396e5be8b13b63152bf03094288fb5867034321927bce087',
+    'ScrollTrigger.min.js': 'ad33c2df9ada8a663c2147357828f980d0b7ca731ef33eb3c6e4f327c3b2cda5',
+  };
+  for (const [file, hash] of Object.entries(files)) {
+    const bytes = readFileSync(resolve(root, 'assets/vendor/gsap', file));
+    assert.equal(createHash('sha256').update(bytes).digest('hex'), hash);
+    assert.match(bytes.toString('utf8'), /Copyright 2024, GreenSock/);
+  }
+  const scripts = [...html.matchAll(/<script\b[^>]*src="([^"]+)"[^>]*>/g)].map((m) => {
+    assert.match(m[0], /\bdefer\b/);
+    return m[1].split('?')[0];
+  });
+  assert.deepEqual(scripts, ['assets/vendor/gsap/gsap.min.js', 'assets/vendor/gsap/ScrollTrigger.min.js', 'script.js', 'motion.js']);
+});
+
+test('动效库或滚动插件缺失时，静态正文和基础交互不依赖动效初始化', () => {
+  for (const window of [{}, {gsap: {}}, {ScrollTrigger: {}}]) {
+    assert.doesNotThrow(() => vm.runInNewContext(motion, {window}));
+  }
+  const {buttons, panels} = harness();
+  buttons[1].events.click();
+  assert.equal(panels[1].hidden, false);
 });
