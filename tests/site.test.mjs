@@ -1,0 +1,118 @@
+import assert from 'node:assert/strict';
+import {readFileSync, existsSync, statSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {resolve, dirname} from 'node:path';
+import vm from 'node:vm';
+import test from 'node:test';
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const html = readFileSync(resolve(root, 'index.html'), 'utf8');
+const css = readFileSync(resolve(root, 'styles.css'), 'utf8');
+const script = readFileSync(resolve(root, 'script.js'), 'utf8');
+
+test('首页的锚点、SVG 引用、图片、字体和本地链接均有真实目标', () => {
+  const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]);
+  assert.equal(new Set(ids).size, ids.length, '不允许重复 id');
+  const refs = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map((m) => m[1]);
+  refs.push(...[...css.matchAll(/url\("([^"]+)"\)/g)].map((m) => m[1]));
+  for (const ref of refs) {
+    if (ref.startsWith('#')) assert.ok(ids.includes(ref.slice(1)), `缺少锚点 ${ref}`);
+    else if (!ref.startsWith('https://')) {
+      const path = resolve(root, ref.split('?')[0]);
+      assert.ok(existsSync(path), `缺少本地资源 ${ref}`);
+      if (statSync(path).isDirectory()) assert.ok(existsSync(resolve(path, 'index.html')));
+    }
+  }
+});
+
+test('首页自托管资源，外链 HTTPS，新窗口保留安全隔离', () => {
+  for (const tag of html.match(/<(?:script|link|img)\b[^>]*>/g)) {
+    if (tag.includes('rel="canonical"')) continue;
+    assert.doesNotMatch(tag, /(?:src|href)="https?:\/\//, '首页不依赖远程脚本、字体或图片');
+  }
+  assert.doesNotMatch(html, /(?:href|src)="http:\/\//);
+  for (const tag of html.match(/<a\b[^>]*>/g)) {
+    if (tag.includes('target="_blank"')) assert.match(tag, /rel="noopener noreferrer"/);
+  }
+  assert.ok(existsSync(resolve(root, 'assets/OFL.txt')), '自托管字体保留授权');
+});
+
+test('图片保留尺寸和无障碍说明，首屏图优先加载', () => {
+  for (const tag of html.match(/<img\b[^>]*>/g)) {
+    assert.match(tag, /\balt="[^"]*"/);
+    assert.match(tag, /\bwidth="\d+"/);
+    assert.match(tag, /\bheight="\d+"/);
+  }
+  assert.match(html, /handwriting\.webp[^>]+fetchpriority="high"/);
+  assert.match(html, /<html lang="zh-CN">/);
+  assert.equal((html.match(/<h1\b/g) || []).length, 1);
+  assert.match(css, /prefers-reduced-motion: reduce/);
+});
+
+function harness() {
+  function element(id, attrs = {}) {
+    return {
+      id, attrs, hidden: Boolean(attrs.hidden), open: false,
+      dataset: {scene: attrs['data-scene']}, events: {},
+      addEventListener(name, callback) { this.events[name] = callback; },
+      setAttribute(name, value) { this.attrs[name] = value; },
+    };
+  }
+  const buttons = [...html.matchAll(/<button\b[^>]*data-scene="([^"]+)"[^>]*>/g)]
+    .map((m, i) => element(`button-${i}`, {'data-scene': m[1], 'aria-pressed': i === 0 ? 'true' : 'false'}));
+  const panels = buttons.map((button, i) => element(button.dataset.scene, {hidden: i !== 0}));
+  const summary = {focused: false, focus() { this.focused = true; }};
+  const links = [element('link')];
+  const menu = element('menu');
+  menu.querySelectorAll = () => links;
+  menu.querySelector = () => summary;
+  const year = {};
+  const switcher = {hidden: true};
+  const document = {
+    events: {}, addEventListener(name, fn) { this.events[name] = fn; },
+    querySelectorAll(selector) { return selector === '[data-scene]' ? buttons : panels; },
+    getElementById(id) { return panels.find((panel) => panel.id === id); },
+    querySelector(selector) {
+      return selector === '.mobile-menu' ? menu : selector === '.scene-switcher' ? switcher : year;
+    },
+  };
+  vm.runInNewContext(script, {document, Date});
+  return {buttons, panels, menu, links, summary, year, document, switcher};
+}
+
+test('切换截图时只有对应画面可见，按钮状态始终一致', () => {
+  const {buttons, panels, switcher} = harness();
+  assert.equal(buttons.length, 3);
+  assert.equal(switcher.hidden, false);
+  for (const index of [1, 2, 0, 0, 2]) {
+    buttons[index].events.click();
+    assert.deepEqual(panels.map((p) => p.hidden), panels.map((_, i) => i !== index));
+    assert.deepEqual(buttons.map((b) => b.attrs['aria-pressed']), buttons.map((_, i) => String(i === index)));
+  }
+  buttons[0].dataset.scene = 'missing-panel';
+  buttons[0].events.click();
+  assert.equal(panels.filter((p) => !p.hidden).length, 1, '引用失效时保留当前画面');
+});
+
+test('手机菜单在链接跳转或 Escape 时关闭，Escape 归还焦点', () => {
+  const {menu, links, summary, document, year} = harness();
+  menu.open = true;
+  links[0].events.click();
+  assert.equal(menu.open, false);
+  menu.open = true;
+  document.events.keydown({key: 'Tab'});
+  assert.equal(menu.open, true);
+  document.events.keydown({key: 'Escape'});
+  assert.equal(menu.open, false);
+  assert.equal(summary.focused, true);
+  assert.equal(year.textContent, new Date().getFullYear());
+});
+
+test('保留协议和历史演示路径，页面不再将网页版标成安装包', () => {
+  for (const file of ['user-agreement/index.html', 'whiteboard-demo.html', 'whiteboard-engine.js']) {
+    assert.ok(existsSync(resolve(root, file)));
+  }
+  assert.match(html, /安装包尚未/);
+  assert.match(html, /https:\/\/app\.flowmuse\.cloud\/library/);
+  assert.doesNotMatch(html, /data-stat-target|1 秒自动识别|Web Speech API|sh(erpa|erpa-onnx)/);
+});
