@@ -1,0 +1,12 @@
+GSAP and ScrollTrigger 3.12.5
+Copyright 2024, GreenSock. All rights reserved.
+Subject to the terms at https://gsap.com/standard-license
+
+The original copyright and license notices remain in both unmodified files.
+This is the same version used by the original FlowMuse website, now self-hosted.
+
+Upstream release: https://github.com/greensock/GSAP/tree/3.12.5
+gsap.min.js: https://raw.githubusercontent.com/greensock/GSAP/3.12.5/dist/gsap.min.js
+SHA-256: 28033e449a31ebcc396e5be8b13b63152bf03094288fb5867034321927bce087
+ScrollTrigger.min.js: https://raw.githubusercontent.com/greensock/GSAP/3.12.5/dist/ScrollTrigger.min.js
+SHA-256: ad33c2df9ada8a663c2147357828f980d0b7ca731ef33eb3c6e4f327c3b2cda5

@@ -18,8 +18,11 @@
   <link rel="apple-touch-icon" href="assets/app-icon.png">
   <link rel="preload" href="assets/flowmuse-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/flowmuse-semibold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20261026">
+  <link rel="stylesheet" href="styles.css?v=20261026-motion">
+  <script src="assets/vendor/gsap/gsap.min.js" defer></script>
+  <script src="assets/vendor/gsap/ScrollTrigger.min.js" defer></script>
   <script src="script.js?v=20261026" defer></script>
+  <script src="motion.js?v=20261026-motion" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">跳到正文</a>
@@ -48,7 +51,7 @@
     <section class="hero container" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow"><span class="status-dot"></span> 一块白板，无限种想法</p>
-        <h1 id="hero-title">让思考，<br><span class="handwritten">自由生长<svg viewBox="0 0 400 20" aria-hidden="true"><path d="M3 13Q190-1 393 8M35 19Q230 5 360 14"/></svg></span><span class="title-stop">。</span></h1>
+        <h1 id="hero-title">让思考，<br><span class="handwritten"><span class="flow-char">自</span><span class="flow-char">由</span><span class="flow-char">生</span><span class="flow-char">长</span><svg viewBox="0 0 400 20" aria-hidden="true"><path d="M3 13Q190-1 393 8M35 19Q230 5 360 14"/></svg></span><span class="title-stop">。</span></h1>
         <p class="hero-description">落笔记下灵感，读一页 PDF，和伙伴一起画出思路。<br class="desktop-break">FlowMuse 把书写、整理与协作，放在同一块白板。</p>
         <div class="hero-actions"><a class="button" href="https://app.flowmuse.cloud/library" target="_blank" rel="noopener noreferrer">开始我的下一页 <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a><a class="text-link" href="#features">看看能做什么 <span aria-hidden="true">↓</span></a></div>
         <p class="hero-footnote">浏览器即可体验 <span>／</span> 基础编辑无需登录</p>

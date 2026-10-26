@@ -18,6 +18,7 @@ python -m http.server 8000 --bind 127.0.0.1
 
 ```sh
 node --check script.js
+node --check motion.js
 node --test tests/site.test.mjs
 ```
 
@@ -29,6 +30,7 @@ node --test tests/site.test.mjs
 index.html                产品介绍与语义化内容
 styles.css                纸面/绿色视觉与响应式布局
 script.js                 截图切换、手机菜单关闭、页脚年份
+motion.js                 GSAP 动效与设备/减少动画适配
 assets/                   自托管截图、图标、裁剪字体与许可证
 tests/site.test.mjs        静态资源和交互回归测试，无第三方依赖
 user-agreement/           现有用户协议（保留原文）
@@ -37,7 +39,9 @@ whiteboard-engine.js       早期演示引擎，不是产品编辑器
 docs/                     本次更新范围、素材与发布记录
 ```
 
-首页不依赖 Google Fonts、GSAP、Iconify 或其他远程脚本。图片为 WebP、注明真实演示来源，指定尺寸以减少布局偏移；首屏图片优先加载，其他图片懒加载。图片大图为直接链接，无需额外弹窗库。
+首页自托管原官网使用的 GSAP 3.12.5 和 ScrollTrigger，提供文字波浪、首屏编排、滚动入场、鼠标光晕、3D 倾斜、按钮反馈、滚动进度与返回顶部，并为新版截图增加切换过渡。库的来源与版权声明见 `assets/vendor/gsap/NOTICE.txt`，上游文件保持原始字节。
+
+鼠标效果不在触屏设备上启用；用户切换“减少动态效果”时清理动画、事件与生成节点，回到静态页面。动效库加载失败不影响正文和基础交互，首页仍不依赖远程脚本、字体和图标。图片为 WebP，首屏图片优先加载，其他图片懒加载；大图为直接链接。
 
 ## 素材来源
 
@@ -49,7 +53,7 @@ docs/                     本次更新范围、素材与发布记录
 
 ## 发布
 
-只发布 `index.html`、`styles.css`、`script.js`、`assets/`、`user-agreement/` 和两份早期白板演示文件。不要将 `.git/`、`tests/`、`docs/`、`build/` 或本机配置上传到公开目录。
+只发布 `index.html`、`styles.css`、`script.js`、`motion.js`、`assets/`、`user-agreement/` 和两份早期白板演示文件。不要将 `.git/`、`tests/`、`docs/`、`build/` 或本机配置上传到公开目录。
 
 服务器官网根目录独立于 `app.flowmuse.cloud` 和 `api.flowmuse.cloud`。先上传到独立版本目录，核对资源哈希，再切换官网 root；保留证书、API 转发和其他站点配置。`nginx -t` 成功后 reload，验证 HTTPS 首页、资源 MIME、协议路径及应用入口。不需要重启后端。回退时恢复官网原 root 并重新检查和 reload。
 
