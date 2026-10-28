@@ -33,7 +33,7 @@ script.js                 截图切换、手机菜单关闭、页脚年份
 motion.js                 GSAP 动效与设备/减少动画适配
 assets/                   自托管截图、图标、裁剪字体与许可证
 tests/site.test.mjs        静态资源和交互回归测试，无第三方依赖
-user-agreement/           现有用户协议（保留原文）
+user-agreement/           用户服务协议（与主项目同步）
 whiteboard-demo.html       早期独立白板演示（保留兼容入口）
 whiteboard-engine.js       早期演示引擎，不是产品编辑器
 docs/                     本次更新范围、素材与发布记录
