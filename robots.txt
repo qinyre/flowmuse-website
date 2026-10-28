@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://flowmuse.cloud/sitemap.xml

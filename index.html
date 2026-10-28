@@ -1,59 +1,29 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FlowMuse 流形白板 · 自由落笔，一起成形</title>
-  <meta name="description" content="FlowMuse 流形白板，将手写笔记、PDF 批注、AI 辅助整理与多人协作放进同一个工作空间。打开网页版，开始你的下一页。">
-  <meta name="theme-color" content="#f8f7f2">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:site_name" content="FlowMuse 流形白板">
-  <meta property="og:title" content="FlowMuse · 自由落笔，一起成形">
-  <meta property="og:description" content="手写、PDF、AI 辅助整理与多端共创，在同一块白板里自然发生。">
-  <meta property="og:url" content="https://flowmuse.cloud/">
-  <meta property="og:image" content="https://flowmuse.cloud/assets/handwriting.webp">
-  <link rel="canonical" href="https://flowmuse.cloud/">
-  <link rel="icon" type="image/png" sizes="192x192" href="assets/app-icon.png">
-  <link rel="apple-touch-icon" href="assets/app-icon.png">
-  <link rel="preload" href="assets/flowmuse-regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/flowmuse-semibold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20261026-motion">
-  <script src="assets/vendor/gsap/gsap.min.js" defer></script>
-  <script src="assets/vendor/gsap/ScrollTrigger.min.js" defer></script>
-  <script src="script.js?v=20261026" defer></script>
-  <script src="motion.js?v=20261026-motion" defer></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">跳到正文</a>
-  <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs>
-      <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
-      <symbol id="external" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
-      <symbol id="pen" viewBox="0 0 24 24"><path d="m15 4 5 5-11 11-6 1 1-6L15 4Zm-9 9 5 5M14 5l5 5"/></symbol>
-      <symbol id="paper" viewBox="0 0 24 24"><path d="M14 3H5v18h14V8l-5-5Zm0 0v5h5M8 12h8m-8 4h6"/></symbol>
-      <symbol id="spark" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3ZM20 2v4m-2-2h4"/></symbol>
-      <symbol id="people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m1-16a3 3 0 0 1 0 6m5 10v-3a6 6 0 0 0-3-5"/></symbol>
-      <symbol id="github" viewBox="0 0 24 24"><path d="M9 20c-4 1-4-2-6-2m12 4v-4a3.5 3.5 0 0 0-1-2.7c3.3-.4 6.8-1.6 6.8-7.3A5.7 5.7 0 0 0 19.3 4 5.3 5.3 0 0 0 19.1 0S17.8-.4 15 1.5a14 14 0 0 0-7 0C5.2-.4 3.9 0 3.9 0A5.3 5.3 0 0 0 3.7 4 5.7 5.7 0 0 0 2.2 8c0 5.7 3.5 6.9 6.8 7.3A3.5 3.5 0 0 0 8 18v4" transform="translate(1 1) scale(.9)"/></symbol>
-    </defs>
-  </svg>
-
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="FlowMuse 流形白板首页"><img src="assets/app-icon.png" width="40" height="40" alt=""><span>FlowMuse<span class="brand-dot">.</span><small>流形白板</small></span></a>
-      <nav class="desktop-nav" aria-label="主导航"><a href="#features">功能体验</a><a href="#collaboration">一起创作</a><a href="#platforms">鸿蒙与多端</a><a href="#faq">常见问题</a></nav>
-      <a class="button button-small header-cta" href="https://app.flowmuse.cloud/library" target="_blank" rel="noopener noreferrer">打开白板 <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a>
-      <details class="mobile-menu"><summary aria-label="导航菜单"><span></span><span></span><span></span></summary><nav aria-label="手机导航"><a href="#features">功能体验</a><a href="#collaboration">一起创作</a><a href="#platforms">鸿蒙与多端</a><a href="#faq">常见问题</a><a href="#download">开始使用</a></nav></details>
-    </div>
-  </header>
-
-  <main id="main">
-    <section class="hero container" id="top" aria-labelledby="hero-title">
+<!-- 由 tool/build-site.mjs 从 site/ 生成，请修改来源后重新生成。 -->
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自由落笔，一起成形 · FlowMuse 流形白板</title><meta name="description" content="FlowMuse 流形白板，将手写、PDF 批注、智能整理与多人协作放进同一块白板。探索功能、平台和使用方式。"><meta name="theme-color" content="#f8f7f2">
+<meta property="og:type" content="website"><meta property="og:locale" content="zh_CN"><meta property="og:site_name" content="FlowMuse 流形白板"><meta property="og:title" content="自由落笔，一起成形 · FlowMuse"><meta property="og:description" content="FlowMuse 流形白板，将手写、PDF 批注、智能整理与多人协作放进同一块白板。探索功能、平台和使用方式。"><meta property="og:url" content="https://flowmuse.cloud/"><meta property="og:image" content="https://flowmuse.cloud/assets/handwriting.webp">
+<link rel="canonical" href="https://flowmuse.cloud/"><link rel="icon" type="image/png" sizes="192x192" href="./assets/app-icon.png"><link rel="apple-touch-icon" href="./assets/app-icon.png">
+<link rel="preload" href="./assets/flowmuse-regular.woff2?v=20261028-sidebar" as="font" type="font/woff2" crossorigin><link rel="preload" href="./assets/flowmuse-semibold.woff2?v=20261028-sidebar" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="./styles.css?v=20261028-sidebar"><link rel="stylesheet" href="./pages.css?v=20261028-sidebar">
+<script src="./assets/vendor/gsap/gsap.min.js" defer></script><script src="./assets/vendor/gsap/ScrollTrigger.min.js" defer></script><script src="./script.js?v=20261028-sidebar" defer></script><script src="./motion.js?v=20261028-sidebar" defer></script></head>
+<body class="home-page"><a class="skip-link" href="#main">跳到正文</a><svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+<symbol id="external" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+<symbol id="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="pen" viewBox="0 0 24 24"><path d="m15 4 5 5-11 11-6 1 1-6L15 4Zm-9 9 5 5M14 5l5 5"/></symbol>
+<symbol id="paper" viewBox="0 0 24 24"><path d="M14 3H5v18h14V8l-5-5Zm0 0v5h5M8 12h8m-8 4h6"/></symbol>
+<symbol id="spark" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3ZM20 2v4m-2-2h4"/></symbol>
+<symbol id="people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m1-16a3 3 0 0 1 0 6m5 10v-3a6 6 0 0 0-3-5"/></symbol>
+<symbol id="github" viewBox="0 0 24 24"><path d="M9 20c-4 1-4-2-6-2m12 4v-4a3.5 3.5 0 0 0-1-2.7c3.3-.4 6.8-1.6 6.8-7.3A5.7 5.7 0 0 0 19.3 4 5.3 5.3 0 0 0 19.1 0S17.8-.4 15 1.5a14 14 0 0 0-7 0C5.2-.4 3.9 0 3.9 0A5.3 5.3 0 0 0 3.7 4 5.7 5.7 0 0 0 2.2 8c0 5.7 3.5 6.9 6.8 7.3A3.5 3.5 0 0 0 8 18v4" transform="translate(1 1) scale(.9)"/></symbol>
+</defs></svg>
+<header class="site-header"><div class="container header-inner"><a class="brand" href="./" aria-label="FlowMuse 流形白板首页"><img src="./assets/app-icon.png" width="40" height="40" alt=""><span translate="no">FlowMuse<span class="brand-dot">.</span><small>流形白板</small></span></a><nav class="desktop-nav" aria-label="主导航"><details class="desktop-menu"><summary>产品能力 <svg class="icon " aria-hidden="true"><use href="#chevron"/></svg></summary><div class="nav-dropdown"><a href="./features/"><strong>功能总览</strong><span>从记录、整理到一起完成</span></a><a href="./features/writing/"><strong>手写与 PDF</strong><span>让笔迹和理解留在同一页</span></a><a href="./features/collaboration/"><strong>实时协作</strong><span>不同设备，共同推进思路</span></a><a href="./features/intelligence/"><strong>智能整理</strong><span>识别、排版与 AI 笔记助手</span></a><a href="./features/library/"><strong>笔记资料库</strong><span>分类、找回与妥善备份</span></a></div></details><a href="./platforms/">鸿蒙与多端</a><a href="./guide/">使用指南</a><a href="./privacy/">数据与隐私</a></nav><a class="button button-small header-cta" href="https://app.flowmuse.cloud/library" target="_blank" rel="noopener noreferrer">打开白板 <svg class="icon " aria-hidden="true"><use href="#external"/></svg></a><details class="mobile-menu"><summary aria-label="导航菜单"><span></span><span></span><span></span></summary><nav aria-label="手机导航"><p>产品能力</p><a href="./features/">功能总览</a><a href="./features/writing/">手写与 PDF</a><a href="./features/collaboration/">实时协作</a><a href="./features/intelligence/">智能整理</a><a href="./features/library/">笔记资料库</a><a href="./platforms/">鸿蒙与多端</a><a href="./guide/">使用指南</a><a href="./privacy/">数据与隐私</a><a href="./faq/">常见问题</a></nav></details></div></header>
+<main id="main" tabindex="-1"><section class="hero container" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow"><span class="status-dot"></span> 一块白板，无限种想法</p>
         <h1 id="hero-title">让思考，<br><span class="handwritten"><span class="flow-char">自</span><span class="flow-char">由</span><span class="flow-char">生</span><span class="flow-char">长</span><svg viewBox="0 0 400 20" aria-hidden="true"><path d="M3 13Q190-1 393 8M35 19Q230 5 360 14"/></svg></span><span class="title-stop">。</span></h1>
         <p class="hero-description">落笔记下灵感，读一页 PDF，和伙伴一起画出思路。<br class="desktop-break">FlowMuse 把书写、整理与协作，放在同一块白板。</p>
-        <div class="hero-actions"><a class="button" href="https://app.flowmuse.cloud/library" target="_blank" rel="noopener noreferrer">开始我的下一页 <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a><a class="text-link" href="#features">看看能做什么 <span aria-hidden="true">↓</span></a></div>
+        <div class="hero-actions"><a class="button" href="https://app.flowmuse.cloud/library" target="_blank" rel="noopener noreferrer">开始我的下一页 <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a><a class="text-link" href="features/">看看能做什么 <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></div>
         <p class="hero-footnote">浏览器即可体验 <span>／</span> 基础编辑无需登录</p>
         <div class="hero-signature"><span class="signature-line"></span><p>自由落笔，一起成形。<small>MADE FOR YOUR FLOW.</small></p></div>
       </div>
@@ -75,7 +45,7 @@
           </figure>
         </div>
         <div class="scene-switcher" role="group" aria-label="切换产品实录截图" hidden><button type="button" data-scene="scene-ink" aria-controls="scene-ink" aria-pressed="true"><svg class="icon" aria-hidden="true"><use href="#pen"/></svg> 自然书写</button><button type="button" data-scene="scene-pdf" aria-controls="scene-pdf" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#paper"/></svg> PDF 批注</button><button type="button" data-scene="scene-collaboration" aria-controls="scene-collaboration" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#people"/></svg> 多端共创</button></div>
-        <p class="image-note">项目演示实录截图 · 点击画面可查看大图</p>
+        <div class="gallery-tools"><p class="image-note">项目演示实录截图 · 点击画面可查看大图</p><button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false" hidden>暂停循环动效</button></div>
       </div>
     </section>
 
@@ -89,6 +59,8 @@
         <article><span class="feature-number">03</span><svg class="feature-symbol library-symbol" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h5v16H4zm7 0h4v16h-4zm6 1 3-1 4 15-3 1z"/></svg><h3>每个想法，都有归处</h3><p>把课程装进笔记本，用标签串起主题，再通过搜索找回它们。本地保存，离线也能继续编辑。</p><ul class="inline-tags"><li>笔记本与标签</li><li>本地搜索</li><li>备份与恢复</li></ul></article>
       </div>
     </section>
+
+    <div class="home-explore container"><p><strong>想了解完整的 FlowMuse？</strong>从落笔、整理到一起完成，逐页看看它能做什么。</p><a class="text-link" href="features/">阅读产品全貌 <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></div>
 
     <section class="ai-section" aria-labelledby="ai-title">
       <div class="container ai-inner">
@@ -118,9 +90,5 @@
       </div>
     </section>
 
-    <section class="start-section container" id="download" aria-labelledby="start-title"><div class="start-decoration" aria-hidden="true">✳</div><div><p class="eyebrow">下一页，留给你的想法</p><h2 id="start-title">从随手一笔，<br>到一起完成。</h2><p>一个人记录，一群人共创。现在就打开 FlowMuse。</p></div><div class="start-actions"><a class="button button-light" href="https://app.flowmuse.cloud/library" target="_blank" rel="noopener noreferrer">打开网页版 <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a><a class="source-link" href="https://github.com/qinyre/FlowMuse" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#github"/></svg> 查看源码与构建说明 <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a><small>原生客户端安装包尚未统一发布</small></div></section>
-  </main>
-
-  <footer class="site-footer container"><div class="footer-top"><div><a class="brand" href="#top"><img src="assets/app-icon.png" width="40" height="40" alt=""><span>FlowMuse<span class="brand-dot">.</span><small>流形白板</small></span></a><p>自由落笔，一起成形。</p></div><nav aria-label="页脚导航"><a href="#features">功能体验</a><a href="https://github.com/qinyre/FlowMuse" target="_blank" rel="noopener noreferrer">项目源码</a><a href="https://github.com/qinyre/FlowMuse/issues" target="_blank" rel="noopener noreferrer">问题反馈</a><a href="user-agreement/">用户服务协议</a></nav></div><div class="footer-bottom"><p>© <span data-current-year>2026</span> FlowMuse</p><a href="#top">回到页首 <span aria-hidden="true">↑</span></a></div></footer>
-</body>
-</html>
+    <section class="start-section container" id="download" aria-labelledby="start-title"><div class="start-decoration" aria-hidden="true">✳</div><div><p class="eyebrow">下一页，留给你的想法</p><h2 id="start-title">从随手一笔，<br>到一起完成。</h2><p>一个人记录，一群人共创。现在就打开 FlowMuse。</p></div><div class="start-actions"><a class="button button-light" href="https://app.flowmuse.cloud/library" target="_blank" rel="noopener noreferrer">打开网页版 <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a><a class="source-link" href="https://github.com/qinyre/FlowMuse" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#github"/></svg> 查看源码与构建说明 <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a><small>原生客户端安装包尚未统一发布</small></div></section></main>
+<footer class="site-footer container"><div class="footer-top"><div><a class="brand" href="./" aria-label="FlowMuse 流形白板首页"><img src="./assets/app-icon.png" width="40" height="40" alt=""><span translate="no">FlowMuse<span class="brand-dot">.</span><small>流形白板</small></span></a><p>自由落笔，一起成形。</p><a class="text-link" href="mailto:3252024846@qq.com">联系与反馈 <svg class="icon " aria-hidden="true"><use href="#arrow"/></svg></a></div><nav aria-label="页脚导航"><div><p>了解产品</p><a href="./features/writing/">手写与 PDF</a><a href="./features/collaboration/">实时协作</a><a href="./features/intelligence/">智能整理</a><a href="./features/library/">笔记资料库</a></div><div><p>开始使用</p><a href="./platforms/">鸿蒙与多端</a><a href="./guide/">使用指南</a><a href="./faq/">常见问题</a><a href="https://github.com/qinyre/FlowMuse" target="_blank" rel="noopener noreferrer">项目源码 <svg class="icon " aria-hidden="true"><use href="#external"/></svg></a></div><div><p>关于与支持</p><a href="./privacy/">数据与隐私</a><a href="./user-agreement/">用户服务协议</a><a href="https://github.com/qinyre/FlowMuse/issues" target="_blank" rel="noopener noreferrer">问题反馈 <svg class="icon " aria-hidden="true"><use href="#external"/></svg></a></div></nav></div><div class="footer-bottom"><p>© <span data-current-year>2026</span> <span translate="no">FlowMuse</span></p><a href="#top">回到页首 <span aria-hidden="true">↑</span></a></div></footer></body></html>
