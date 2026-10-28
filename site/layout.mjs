@@ -1,7 +1,7 @@
 export const origin = 'https://flowmuse.cloud';
 export const app = 'https://app.flowmuse.cloud/library';
 export const source = 'https://github.com/qinyre/FlowMuse';
-export const version = '20261028-sidebar';
+export const version = '20261028-sidebar-groups';
 export const productPages = [
   ['/features/', '功能总览', '从记录、整理到一起完成'],
   ['/features/writing/', '手写与 PDF', '让笔迹和理解留在同一页'],

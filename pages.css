@@ -50,9 +50,10 @@ main { overflow: clip; }
 .docs-sidebar { position: sticky; top: 84px; height: calc(100dvh - 84px); overflow-y: auto; overscroll-behavior: contain; padding: 26px 20px 22px 32px; background: #edf1e9; scrollbar-width: thin; scrollbar-color: #b9c8ad transparent; view-transition-name: docs-sidebar; }
 .sidebar-heading { margin-bottom: 18px; font-size: 14px; color: var(--ink); font-weight: 600; }
 .sidebar-overview { margin-bottom: 14px; }
-.sidebar-group + .sidebar-group { margin-top: 16px; }
-.sidebar-group > p { padding: 0 10px 6px; font-size: 13px; color: #4e6258; }
-.docs-sidebar nav a, .docs-mobile-menu nav a { position: relative; display: flex; align-items: center; min-height: 34px; padding: 5px 10px; border-radius: 5px; color: #52635b; font-size: 13px; transition: background .18s, color .18s; }
+.sidebar-group + .sidebar-group { margin-top: 22px; }
+.sidebar-group > p { margin-bottom: 6px; padding: 0 10px; font-size: 12px; line-height: 1.6; font-weight: 600; color: #5c6f63; cursor: default; }
+.docs-sidebar nav a, .docs-mobile-menu nav a { position: relative; display: flex; align-items: center; min-height: 36px; padding: 5px 10px; border-radius: 5px; color: var(--ink); font-size: 14px; transition: background .18s, color .18s; }
+.docs-sidebar .sidebar-group > a, .docs-mobile-menu .sidebar-group > a { padding-left: 22px; }
 .docs-sidebar nav a:hover, .docs-mobile-menu nav a:hover { background: #edf0e5; color: var(--green); }
 .docs-sidebar nav a[aria-current="page"], .docs-mobile-menu nav a[aria-current="page"] { background: var(--deep-green); color: white; font-weight: 600; }
 .sidebar-home { display: inline-flex; align-items: center; min-height: 44px; margin-top: 22px; padding-inline: 10px; color: var(--green); font-size: 12px; }
@@ -232,7 +233,9 @@ kbd { display: inline-block; padding: 1px 6px; border: 1px solid #cad2c3; border
   .docs-mobile-bar { top: 70px; }
   .docs-mobile-menu > summary { width: calc(100% - 40px); }
   .docs-mobile-menu > nav { padding-inline: 20px; gap: 16px; }
-  .docs-mobile-menu nav a { padding-left: 8px; font-size: 13px; }
+  .docs-mobile-menu nav a { padding-left: 8px; font-size: 14px; }
+  .docs-mobile-menu .sidebar-group > p { padding-left: 8px; }
+  .docs-mobile-menu .sidebar-group > a { padding-left: 18px; }
   .page-hero h1 { font-size: 34px; line-height: 1.5; margin-block: 0 16px; }
   .page-statement { font-size: 22px; }
   .page-lead { font-size: 18px; }

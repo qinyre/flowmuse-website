@@ -1,5 +1,5 @@
-@font-face { font-family: "FlowMuse Sans"; src: url("assets/flowmuse-regular.woff2?v=20261028-sidebar") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "FlowMuse Sans"; src: url("assets/flowmuse-semibold.woff2?v=20261028-sidebar") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "FlowMuse Sans"; src: url("assets/flowmuse-regular.woff2?v=20261028-sidebar-groups") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "FlowMuse Sans"; src: url("assets/flowmuse-semibold.woff2?v=20261028-sidebar-groups") format("woff2"); font-weight: 600; font-display: swap; }
 
 :root {
   color-scheme: light;
