@@ -59,6 +59,8 @@ docs/                     本次更新范围、素材与发布记录
 
 每次修改静态 CSS/JS，应同步更新 `index.html` 的资源版本参数，避免旧缓存与新页面混用。
 
+将 `deploy/nginx-html-cache.conf` 安装至 `/etc/nginx/snippets/flowmuse-website-html-cache.conf`，在**官网**的 `server` 块中 include。Nginx 的目录首页最终转到 `.html`，此配置要求首页、用户协议和旧演示页面在复用缓存前向服务器重验，图片、脚本和字体沿用原缓存策略。变更后执行 `nginx -t` 再 reload，并检查主域名、www、`/index.html` 和 `/user-agreement/` 的实际响应头。GitHub Pages 是独立发布入口，不能通过此服务器配置控制其缓存。
+
 ## 公开文字维护
 
 公开页面和说明使用项目名称，不记录成员姓名、个人账号或学校身份；反馈邮箱和第三方许可署名保持原用途。用户协议与主项目同步，截图、视频及 Git 历史按本次用户确认的范围保留。
