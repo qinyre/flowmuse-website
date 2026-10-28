@@ -118,24 +118,24 @@
     const {signal} = listeners;
     let glowLayer;
     if (document.body.classList.contains('home-page')) {
-    const glow = document.createElement('div');
-    glow.className = 'cursor-glow';
-    glow.setAttribute('aria-hidden', 'true');
-    glowLayer = document.createElement('div');
-    glowLayer.className = 'cursor-glow-layer';
-    glowLayer.append(glow);
-    document.body.append(glowLayer);
-    gsap.set(glow, {xPercent: -50, yPercent: -50});
-    const moveX = gsap.quickTo(glow, 'x', {duration: .4, ease: 'power3.out'});
-    const moveY = gsap.quickTo(glow, 'y', {duration: .4, ease: 'power3.out'});
-    const fadeGlow = gsap.quickTo(glow, 'opacity', {duration: .25});
-    document.addEventListener('pointermove', (event) => {
-      if (event.pointerType !== 'mouse') return;
-      moveX(event.clientX);
-      moveY(event.clientY);
-      fadeGlow(1);
-    }, {passive: true, signal});
-    document.addEventListener('pointerleave', () => fadeGlow(0), {signal});
+      const glow = document.createElement('div');
+      glow.className = 'cursor-glow';
+      glow.setAttribute('aria-hidden', 'true');
+      glowLayer = document.createElement('div');
+      glowLayer.className = 'cursor-glow-layer';
+      glowLayer.append(glow);
+      document.body.append(glowLayer);
+      gsap.set(glow, {xPercent: -50, yPercent: -50});
+      const moveX = gsap.quickTo(glow, 'x', {duration: .4, ease: 'power3.out'});
+      const moveY = gsap.quickTo(glow, 'y', {duration: .4, ease: 'power3.out'});
+      const fadeGlow = gsap.quickTo(glow, 'opacity', {duration: .25});
+      document.addEventListener('pointermove', (event) => {
+        if (event.pointerType !== 'mouse') return;
+        moveX(event.clientX);
+        moveY(event.clientY);
+        fadeGlow(1);
+      }, {passive: true, signal});
+      document.addEventListener('pointerleave', () => fadeGlow(0), {signal});
     }
 
     document.querySelectorAll('.product-window, .screenshot-sheet, .feature-columns article, .platform-details, .page-visual .product-figure').forEach((element) => {
