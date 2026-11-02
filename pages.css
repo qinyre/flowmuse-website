@@ -40,6 +40,8 @@ main { overflow: clip; }
 .footer-top nav .icon { width: 14px; height: 14px; }
 .footer-bottom { align-items: center; font-size: 12px; color: var(--muted); }
 .footer-bottom a { min-height: 44px; }
+.footer-legal { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 20px; }
+.footer-bottom > a { flex-shrink: 0; }
 .motion-toggle { min-height: 44px; padding: 0; border: 0; background: transparent; color: var(--green); font-size: 13px; }
 .motion-toggle:hover { text-decoration: underline; text-underline-offset: 4px; }
 .gallery-tools { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 4px 20px; margin-top: 8px; }
