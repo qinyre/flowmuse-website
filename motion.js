@@ -28,13 +28,6 @@
         gsap.to(visual.querySelector('.product-figure'), {y: -12, ease: 'none', scrollTrigger: {trigger: visual, start: 'top center', end: 'bottom top', scrub: .5}});
       }
     }
-    document.querySelectorAll('.handwritten path').forEach((path) => {
-      const length = path.getTotalLength();
-      hero.fromTo(path, {strokeDasharray: length, strokeDashoffset: length}, {
-        strokeDashoffset: 0, duration: 1.2, clearProps: 'strokeDasharray,strokeDashoffset',
-      }, .65);
-    });
-
     const motionToggle = document.querySelector('[data-motion-toggle]');
     if (document.querySelector('.hero')) {
       const idle = gsap.timeline({repeat: -1, yoyo: true, defaults: {ease: 'sine.inOut'}})

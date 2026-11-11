@@ -335,7 +335,7 @@ kbd { display: inline-block; padding: 1px 6px; border: 1px solid #cad2c3; border
 /* 视觉强化 2026-11-11：页首徽记、章节眉题、便签纸感与阅读行反馈。 */
 .page-eyebrow { width: fit-content; margin-bottom: 14px; padding: 7px 15px; border: 1px solid #ccd9bd; border-radius: 999px; background: #eef3e4; letter-spacing: .12em; }
 .page-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
-.page-aside { margin-top: 20px; font-family: "STKaiti", "KaiTi", "Kaiti SC", var(--font); font-size: 17px; line-height: 1.8; color: #5f7260; }
+.page-aside { margin-top: 20px; font-size: 16px; line-height: 1.9; color: #5f7260; }
 .page-aside span { display: block; margin-top: 2px; font-family: var(--font); font-size: 12px; letter-spacing: .18em; color: var(--gold); }
 .chapter-kicker { display: flex; align-items: center; gap: 12px; }
 .chapter-kicker::after { content: ""; width: 28px; height: 1px; background: #b9c8ad; }
