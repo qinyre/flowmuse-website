@@ -17,9 +17,11 @@
         .from('.hero-actions, .hero-footnote, .hero-signature', {y: 18, opacity: 0, stagger: .08}, .45)
         .from('.hero-showcase', {y: 32, opacity: 0, duration: 1}, .2);
     } else {
-      hero.fromTo('.page-hero-copy h1', {y: 20, opacity: .65}, {y: 0, opacity: 1, duration: .8}, 0)
+      hero.from('.page-eyebrow', {y: 12, opacity: 0, duration: .55}, 0)
+        .fromTo('.page-hero-copy h1', {y: 20, opacity: .65}, {y: 0, opacity: 1, duration: .8}, 0)
         .from('.page-statement', {y: 14, duration: .7}, .07)
-        .from('.page-lead', {y: 10, duration: .65}, .14);
+        .from('.page-lead', {y: 10, duration: .65}, .14)
+        .from('.page-aside', {y: 12, opacity: 0, duration: .6}, .22);
       const visual = document.querySelector('.page-visual');
       if (visual) {
         hero.fromTo(visual, {y: 28, opacity: .6}, {y: 0, opacity: 1, duration: .9}, 0);

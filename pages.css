@@ -331,3 +331,43 @@ kbd { display: inline-block; padding: 1px 6px; border: 1px solid #cad2c3; border
   .page-visual .product-figure, .index-preview, .feature-index-row:nth-child(even) .index-preview { transform: none; }
   .reading-next > a:hover > .icon { transform: none; }
 }
+
+/* 视觉强化 2026-11-11：页首徽记、章节眉题、便签纸感与阅读行反馈。 */
+.page-eyebrow { width: fit-content; margin-bottom: 14px; padding: 7px 15px; border: 1px solid #ccd9bd; border-radius: 999px; background: #eef3e4; letter-spacing: .12em; }
+.page-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+.page-aside { margin-top: 20px; font-family: "STKaiti", "KaiTi", "Kaiti SC", var(--font); font-size: 17px; line-height: 1.8; color: #5f7260; }
+.page-aside span { display: block; margin-top: 2px; font-family: var(--font); font-size: 12px; letter-spacing: .18em; color: var(--gold); }
+.chapter-kicker { display: flex; align-items: center; gap: 12px; }
+.chapter-kicker::after { content: ""; width: 28px; height: 1px; background: #b9c8ad; }
+.chapter-heading h2 { margin-top: 6px; }
+.detail-page .editor-note { margin-top: 34px; border-radius: 6px; transform: rotate(-.4deg); box-shadow: 4px 5px 0 #dde5d2, 0 14px 26px -20px rgb(35 63 44 / 40%); }
+.editor-note::before { content: ""; position: absolute; top: -11px; left: 50%; width: 86px; height: 22px; transform: translateX(-50%) rotate(-1.6deg); background: rgb(187 152 74 / 26%); box-shadow: 0 1px 2px rgb(35 63 44 / 10%); }
+.detail-page .fact-list dt { position: relative; padding-left: 16px; }
+.detail-page .fact-list dt::before { content: ""; position: absolute; left: 0; top: 13px; width: 8px; height: 2px; background: var(--gold); }
+.detail-page .fact-list > div { border-radius: 10px; padding-inline: 16px; margin-inline: -16px; transition: background .2s; }
+.detail-page .fact-list > div:hover { background: #f2f5eb; }
+.page-toc { border-radius: 10px; }
+.page-toc a { padding: 5px 12px; border-radius: 6px; transition: background .2s; }
+.page-toc a:hover { background: white; text-decoration: none; }
+.detail-page .reading-next, .support-strip { border-left: 3px solid var(--gold); }
+.table-scroll { border: 1px solid var(--line); border-radius: 10px; background: white; }
+tbody tr { transition: background .15s; }
+tbody tr:hover { background: #f6f8f0; }
+.docs-sidebar nav a[aria-current="page"]::after { content: ""; position: absolute; left: 0; top: 9px; bottom: 9px; width: 3px; border-radius: 3px; background: var(--gold); }
+.breadcrumbs a:hover { color: var(--green); }
+.index-preview { overflow: hidden; border-radius: 8px; }
+.index-preview img { transition: transform .5s cubic-bezier(.22, 1, .36, 1); }
+.index-preview:hover img { transform: scale(1.035); }
+.product-figure img { transition: transform .5s cubic-bezier(.22, 1, .36, 1); }
+.product-figure:hover img { transform: scale(1.015); }
+.home-explore { padding: 38px 44px; border: 1px solid #dce4d4; border-radius: 12px; background: var(--mint); }
+@media (max-width: 600px) {
+  .page-eyebrow { letter-spacing: .08em; }
+  .detail-page .editor-note { transform: none; }
+  .detail-page .fact-list > div { padding-inline: 12px; margin-inline: -12px; }
+  .home-explore { padding: 24px 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .detail-page .editor-note { transform: none; }
+  .index-preview:hover img, .product-figure:hover img { transform: none; }
+}

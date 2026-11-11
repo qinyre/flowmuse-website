@@ -1,7 +1,7 @@
 export const origin = 'https://flowmuse.cloud';
 export const app = 'https://app.flowmuse.cloud/library';
 export const source = 'https://github.com/qinyre/FlowMuse';
-export const version = '20261111-product-update';
+export const version = '20261111-visual-refresh';
 export const productPages = [
   ['/features/', '功能总览', '从记录、整理到一起完成'],
   ['/features/writing/', '手写与 PDF', '让笔迹和理解留在同一页'],
@@ -42,15 +42,15 @@ export function shot(route, file, width, height, alt, caption, {crop = false, ea
   const src = url(route, '/assets/' + file);
   return `<figure class="product-figure${crop ? ' figure-cropped' : ''}${crop === 'center' ? ' figure-dialog' : ''}"><a href="${src}" target="_blank" rel="noopener noreferrer" aria-label="${escape('查看大图：' + alt)}"><img src="${src}" width="${width}" height="${height}" alt="${escape(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'}></a><figcaption><span>${escape(caption)}</span><span class="figure-zoom">查看大图 ${icon('external')}</span></figcaption></figure>`;
 }
-export function hero(page, {title, description, visual = ''}) {
+export function hero(page, {title, description, visual = '', label = '', aside = ''}) {
   const statement = title.replace(/<\/?span[^>]*>|<br>/g, '');
-  return `<section class="page-hero container" id="top"><nav class="breadcrumbs" aria-label="当前位置"><a href="${url(page.route, '/')}">首页</a><span aria-hidden="true">/</span>${page.route.startsWith('/features/') && page.route !== '/features/' ? `<a href="${url(page.route, '/features/')}">产品能力</a><span aria-hidden="true">/</span>` : ''}<span aria-current="page">${page.label}</span></nav><div class="page-hero-copy"><h1>${page.label}</h1><p class="page-statement">${statement}</p><p class="page-lead">${description}</p></div>${visual ? `<div class="page-visual">${visual}</div>` : ''}</section>`;
+  return `<section class="page-hero container" id="top"><nav class="breadcrumbs" aria-label="当前位置"><a href="${url(page.route, '/')}">首页</a><span aria-hidden="true">/</span>${page.route.startsWith('/features/') && page.route !== '/features/' ? `<a href="${url(page.route, '/features/')}">产品能力</a><span aria-hidden="true">/</span>` : ''}<span aria-current="page">${page.label}</span></nav><div class="page-hero-copy">${label ? `<p class="eyebrow page-eyebrow">${label}</p>` : ''}<h1>${page.label}</h1><p class="page-statement">${statement}</p><p class="page-lead">${description}</p>${aside ? `<p class="page-aside">${aside}</p>` : ''}</div>${visual ? `<div class="page-visual">${visual}</div>` : ''}</section>`;
 }
 export function toc(items) {
   return `<nav class="page-toc container" aria-label="本页目录"><span>这一页，聊聊</span>${items.map(([id, label]) => `<a href="#${id}">${label}</a>`).join('')}</nav>`;
 }
 export function chapter(id, number, title, intro, body, extra = '') {
-  return `<section class="chapter container ${extra}" id="${id}"><div class="chapter-heading"><h2>${title}</h2>${intro ? `<p>${intro}</p>` : ''}</div><div class="chapter-body">${body}</div></section>`;
+  return `<section class="chapter container ${extra}" id="${id}"><div class="chapter-heading">${number ? `<p class="eyebrow chapter-kicker">${number}</p>` : ''}<h2>${title}</h2>${intro ? `<p>${intro}</p>` : ''}</div><div class="chapter-body">${body}</div></section>`;
 }
 export const facts = rows => `<dl class="fact-list">${rows.map(([title, body]) => `<div><dt>${title}</dt><dd>${body}</dd></div>`).join('')}</dl>`;
 export const note = (title, body) => `<aside class="editor-note"><strong>${title}</strong><p>${body}</p></aside>`;
