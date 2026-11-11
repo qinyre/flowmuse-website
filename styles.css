@@ -57,7 +57,7 @@ svg { flex-shrink: 0; }
 .hero .eyebrow { display: flex; align-items: center; gap: 10px; }
 h1 { margin-top: 26px; font-size: clamp(50px, 4.9vw, 70px); letter-spacing: -.055em; line-height: 1.32; }
 .handwritten { position: relative; display: inline-block; color: var(--deep-green); font-family: "Kaiti SC", "STKaiti", "KaiTi", "FlowMuse Sans", serif; font-weight: 600; font-size: 1.04em; letter-spacing: .02em; }
-.hero-mark::before { content: ""; position: absolute; left: -3%; right: -2%; top: 12%; bottom: 2%; z-index: -1; border-radius: 10px; background: linear-gradient(100deg, #e2eecd, #cfe3b2 45%, #dbe8c2); transform: rotate(-1.2deg); box-shadow: 0 3px 10px -6px rgb(120 143 96 / 45%); }
+.hero-mark::before { content: ""; position: absolute; left: -3%; right: -2%; top: 12%; bottom: 2%; z-index: -1; border-radius: 10px; background: linear-gradient(100deg, #e2eecd, #cfe3b2 45%, #dbe8c2); transform: rotate(var(--band-tilt, -1.2deg)); box-shadow: 0 3px 10px -6px rgb(120 143 96 / 45%); }
 .hero-description { max-width: 495px; margin-top: 28px; color: var(--muted); font-size: 15px; line-height: 1.95; }
 .hero-actions { display: flex; align-items: center; gap: 28px; margin-top: 30px; }
 .hero-footnote { margin-top: 15px; font-size: 11px; color: #68766d; }

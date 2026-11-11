@@ -31,9 +31,14 @@
     const motionToggle = document.querySelector('[data-motion-toggle]');
     if (document.querySelector('.hero')) {
       const idle = gsap.timeline({repeat: -1, yoyo: true, defaults: {ease: 'sine.inOut'}})
-        .to('.flow-char', {y: -6, duration: 1.5, stagger: .13}, 0)
+        .set('.hero-mark', {'--band-tilt': '-1.2deg'})
+        .to('.hero-mark', {'--band-tilt': '-2deg', duration: 3}, 0)
         .to('.showcase-note', {y: -6, duration: 2.6}, 0)
         .to('.product-window', {y: -5, duration: 2.6}, 0);
+      gsap.utils.toArray('.flow-char').forEach((char, index) => {
+        gsap.set(char, {transformOrigin: '50% 82%'});
+        idle.to(char, {y: index % 2 ? -4 : -9, rotation: index % 2 ? 1.6 : -1.6, duration: 1.4 + index * .18}, index * .16);
+      });
       let paused = false;
       let heroVisible = true;
       const syncIdle = () => idle.paused(paused || document.hidden || !heroVisible);
