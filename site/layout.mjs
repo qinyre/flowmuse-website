@@ -1,7 +1,7 @@
 export const origin = 'https://flowmuse.cloud';
 export const app = 'https://app.flowmuse.cloud/library';
 export const source = 'https://github.com/qinyre/FlowMuse';
-export const version = '20261102-icp-footer-2';
+export const version = '20261111-product-update';
 export const productPages = [
   ['/features/', '功能总览', '从记录、整理到一起完成'],
   ['/features/writing/', '手写与 PDF', '让笔迹和理解留在同一页'],
@@ -10,11 +10,11 @@ export const productPages = [
   ['/features/library/', '笔记资料库', '分类、找回与妥善备份'],
 ];
 export const navigationGroups = [
-  ['记录与阅读', [['/features/writing/','自然书写'],['/features/pdf/','PDF 阅读与批注'],['/features/canvas/','画布编辑与导出']]],
-  ['一起创作', [['/features/collaboration/','实时协作'],['/features/presence/','聚焦与跟随'],['/features/friends/','好友与邀请']]],
-  ['智能整理', [['/features/recognition/','手写识别'],['/features/layout/','智能排版'],['/features/intelligence/','AI 笔记助手'],['/features/speech/','语音输入']]],
+  ['记录与阅读', [['/features/writing/','自然书写'],['/features/pdf/','PDF 阅读与批注'],['/features/split/','双栏阅读'],['/features/canvas/','画布编辑与导出']]],
+  ['一起创作', [['/features/collaboration/','实时协作'],['/features/presence/','聚焦与跟随'],['/features/friends/','好友与邀请'],['/features/notifications/','消息提醒']]],
+  ['智能整理', [['/features/recognition/','手写识别'],['/features/layout/','智能排版'],['/features/intelligence/','AI 笔记助手'],['/features/mindmap/','思维导图'],['/features/speech/','语音输入']]],
   ['管理笔记', [['/features/library/','笔记资料库'],['/features/backup/','备份与恢复'],['/features/preferences/','主题与偏好']]],
-  ['了解与使用', [['/platforms/','鸿蒙与多端'],['/guide/','使用指南'],['/faq/','常见问题'],['/privacy/','数据与隐私']]],
+  ['了解与使用', [['/updates/','最近更新'],['/platforms/','鸿蒙与多端'],['/guide/','使用指南'],['/faq/','常见问题'],['/privacy/','数据与隐私']]],
 ];
 export const escape = (value) => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function url(from, to) {

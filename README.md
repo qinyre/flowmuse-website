@@ -32,9 +32,10 @@ node --test tests/site.test.mjs
 | --- | --- |
 | `site/home.html` | 首页原有图文与实录画廊 |
 | `site/layout.mjs` | 共享导航、侧栏、图片、正文组件和元信息 |
-| `site/feature-pages.mjs` | 13 个独立功能页 |
+| `site/feature-pages.mjs` | 16 个独立功能页，含双栏阅读、思维导图与消息提醒 |
 | `site/content.mjs` | 功能总览、鸿蒙与多端、指南、隐私与 FAQ |
-| `tool/build-site.mjs` | 生成 19 个页面及 sitemap、robots |
+| `site/updates.mjs` | 最近更新，记录已实现功能及核对日期 |
+| `tool/build-site.mjs` | 生成 23 个页面及 sitemap、robots |
 | `styles.css` / `pages.css` | 首页风格与介绍区、响应式样式 |
 | `script.js` | 画廊、菜单、FAQ 深链接、年份和侧栏定位 |
 | `motion.js` | 自托管 GSAP、滚动入场、图片反馈与减少动画适配 |
@@ -43,7 +44,7 @@ node --test tests/site.test.mjs
 | `404.html` | 无脚本、无资源依赖的错误页 |
 | `whiteboard-demo.html` / `whiteboard-engine.js` | 历史独立演示，保留入口 |
 
-独立功能包括自然书写、PDF、画布编辑、实时协作、聚焦与跟随、好友与邀请、手写识别、智能排版、AI 助手、语音、资料库、备份和偏好设置。实际地址见 [站点地图](sitemap.xml)。
+独立功能包括自然书写、PDF、双栏阅读、画布编辑、实时协作、聚焦与跟随、好友与邀请、消息提醒、手写识别、智能排版、AI 助手、思维导图、语音、资料库、备份和偏好设置。实际地址见 [站点地图](sitemap.xml)。功能内容核对至 2026 年 11 月 11 日，后续更新同步维护最近更新页和相关指南、FAQ、隐私说明。
 
 ## 素材与字体
 
@@ -61,7 +62,7 @@ GSAP 3.12.5 与 ScrollTrigger 保持上游原始字节；声明见 `assets/vendo
 
 ## 发布与回退
 
-发布 `index.html`、`features/`、`platforms/`、`guide/`、`privacy/`、`faq/`、`404.html`、`sitemap.xml`、`robots.txt`、两份 CSS、两份 JS、`assets/`、`user-agreement/` 和历史演示文件。不要发布 `.git/`、`site/`、`tool/`、`tests/`、`docs/`、`build/`、`.taste-skill/` 或本机配置。
+发布 `index.html`、`features/`、`platforms/`、`guide/`、`privacy/`、`faq/`、`updates/`、`404.html`、`sitemap.xml`、`robots.txt`、两份 CSS、两份 JS、`assets/`、`user-agreement/` 和历史演示文件。不要发布 `.git/`、`site/`、`tool/`、`tests/`、`docs/`、`build/`、`.taste-skill/` 或本机配置。
 
 官网根目录与白板应用、API 独立。将上述文件上传至新的版本目录，核对资源后再切换官网 root，保留旧版本用于回退。官网 `server` 中将旧的单页回退替换为真实目录和 404：
 

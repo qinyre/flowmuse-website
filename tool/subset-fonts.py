@@ -9,7 +9,7 @@ parser.add_argument('--source-dir', type=Path, required=True)
 args = parser.parse_args()
 root = Path(__file__).resolve().parent.parent
 pages = [root / 'index.html', *root.glob('features/**/index.html'),
-         *(root / folder / 'index.html' for folder in ('platforms', 'guide', 'privacy', 'faq'))]
+         *(root / folder / 'index.html' for folder in ('platforms', 'guide', 'privacy', 'faq', 'updates'))]
 text = ''.join(page.read_text(encoding='utf-8') for page in pages)
 text += (root / 'script.js').read_text(encoding='utf-8')
 text += (root / 'motion.js').read_text(encoding='utf-8')

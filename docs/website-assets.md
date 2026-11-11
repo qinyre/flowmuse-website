@@ -25,6 +25,7 @@
 | `screenshots/themes.png` | `2026-10-27-settings-ui-theme-day.png` |
 | `screenshots/collaboration-view.png` | `collaboration-status-header-desktop.png` |
 | `screenshots/create-room.png` | `collaboration-room-create-preview.png` |
+| `screenshots/assistant-sidebar.png` | 2026-11-11 正式 Web `59143764` 的干净浏览器冒烟截图，展示匿名空白笔记与真实助手侧栏 |
 
 部分画面通过 CSS 展示上部或中央，方便查看相应控件；点击图片仍可打开完整原图。没有引入素材站图片或 AI 生成的产品截图。无截图的能力通过文字介绍，不拼凑虚构界面。
 
