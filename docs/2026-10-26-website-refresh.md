@@ -16,7 +16,7 @@
 ## 素材
 
 - 图标：主仓库 `FlowMuse-App/assets/images/flowmuse-app-icon.png`。
-- 产品截图：主仓库 `docs/参赛文档/复赛演示视频/edit/public/footage/*-v5.mp4` 中的真实演示帧，不代表当前版本全部平台实测。
+- 产品截图：历史产品实录的演示帧，片名与取帧位置见[官网素材来源](website-assets.md)，不代表当前版本全部平台实测。
 - 字体：FlowMuse Sans（由 Noto Sans SC 派生，SIL OFL 1.1），随站点保留许可证。网页按静态文案裁剪 WOFF2，未覆盖字符使用系统回退。
 
 ## 验证与发布
